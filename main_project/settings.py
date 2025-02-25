@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost",]
 
+SITE_ID = 1
 
 # Application definition
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +152,12 @@ SOCIALACCOUNT_PROVIDERS = {
         'OAUTH_PKCE_ENABLED': True,
     }
 }
+
+
+LOGIN_REDIRECT_URL = "/"  # Redirect to home page after login
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Options: "none", "optional", "mandatory"
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # Automatically confirm if user clicks the link
+

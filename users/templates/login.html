@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+
+
+{% block content %}
+<div class="container">
+    <h2>Login</h2>
+
+    {% if form.errors %}
+        <p style="color: red;">Invalid email or password.</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="id_login">Email:</label>
+        {{ form.login }}
+
+        <label for="id_password">Password:</label>
+        {{ form.password }}
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="links">
+        <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
+        <a href="{% url 'account_signup' %}">Create an Account</a>
+    </div>
+</div>
+{% endblock %}
