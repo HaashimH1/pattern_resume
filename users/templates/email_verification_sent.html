@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Verification Email Sent{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Verification Email Senttttt</h2>
+    <p>A verification email has been sent to your inbox. Please check your email and click the link to verify your account.</p>
+
+    <p>Didn't get it? Click the button below to resend.</p>
+
+    <form method="POST" action="{% url 'account_resend_verification' %}">
+        {% csrf_token %}
+        <button type="submit">Resend Email</button>
+    </form>
+
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: green;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

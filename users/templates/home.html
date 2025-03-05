@@ -8,6 +8,13 @@
     <p>Welcome, {{ user.username }}!</p>
     <a href="{% url 'logout' %}">Logout</a>
 
+    {% if not user.emailaddress_set.first.verified %}
+    <p>Your email is not verified. Please verify your email to access all features.</p>
+    <a href="{% url 'account_email_verification_sent' %}">Verify Email</a>
+    {% else %}
+    <p>Your email is verified. Enjoy your experience!</p>
+    {% endif %}
+
 {% else %}
     <p>Welcome! Please <a href="{% url 'account_login' %}">login</a> or <a href="{% url 'account_signup' %}">register</a>.</p>
 {% endif %}

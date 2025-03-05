@@ -156,8 +156,12 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LOGIN_REDIRECT_URL = "/"  # Redirect to home page after login
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Options: "none", "optional", "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "optional"  # Options: "none", "optional", "mandatory"
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # Automatically confirm if user clicks the link
+ACCOUNT_LOGOUT_REDIRECT_URL = "/login/"  # Redirect to login after logout
+
+
+
 

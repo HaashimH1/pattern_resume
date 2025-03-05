@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
-from allauth.account.views import LoginView, SignupView, LogoutView
+from django.contrib import messages
+from allauth.account.models import EmailAddress 
 
 
 def home_view(request):
@@ -18,4 +18,15 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+
+def resend_verification_email(request):
+    if request.user.is_authenticated:
+        email_address = EmailAddress.objects.filter(user=request.user, verified=False).first()
+        if email_address:
+            email_address.send_confirmation(request)
+            messages.success(request, "A new verification email has been sent to your inbox.")
+        else:
+            messages.info(request, "Your email is already verified.")
+
+    return redirect("account_email_verification_sent")
 
