@@ -20,4 +20,5 @@ urlpatterns = [
     path("resend-verification/", views.resend_verification_email, name="account_resend_verification"),
     
     path('dashboard/', views.dashboard_view, name='dashboard'),
+    path('create-a-resume/', views.create_a_resume_view, name='create_a_resume'),
 ]

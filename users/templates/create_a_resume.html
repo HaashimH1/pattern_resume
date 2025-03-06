@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% block title %}Create a resume{% endblock %}
+
+{% block content %}
+
+<h2>You need to choose a template to start creating your resume</h2>
+<ul>
+    {% for template in templates %}
+    {{ template.id }}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="template_id" value="{{ template.id }}">
+        <button type="submit" name="create_resume">
+          {{ template.name }} - {{ template.description }}
+        </button>
+      </form>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,26 @@
+/* GOOGLE FONTS IMPORT */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* wildcard selectoe to reset all browser default style rules */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* variables to define accent colours */
+:root {
+    --primary: #10a37f;
+    --secondary: yellow;
+}
+
+html {
+    font-size: 16px;
+    /* Sets the base font size to 16px */
+}
+
+body {
+    font-family: "Nunito";
+    max-width: 100vw;
+    background-color: cornsilk;
+}

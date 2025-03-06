@@ -17,3 +17,30 @@ def get_user_status(user):
     }
     
     return status_data
+
+
+def is_resume_created(user):
+    return Resume.objects.filter(user=user).exists()
+
+def does_user_own_template(user, template_id):
+    try:
+        user_status = UserStatus.objects.get(user=user)
+        return user_status.templates.filter(id=template_id).exists()
+    except ObjectDoesNotExist:
+        return False
+
+def create_resume(user, template_id):
+
+    template_id = int(template_id)
+    if not does_user_own_template(user, template_id):
+        return None  # User does not own the chosen template
+    else:
+        template_instance = Template.objects.get(id=template_id)
+        resume = Resume.objects.create(
+            user=user,
+            template=template_instance,
+            job_title="Job Title",
+            summary="Your Summary Here"
+        )
+    
+    return resume
