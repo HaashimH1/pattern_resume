@@ -1,0 +1,20 @@
+{% extends 'base.html' %} 
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+{% if templates %}
+<h2>Templates You Have Access To:</h2>
+<ul>
+    {% for template in templates %}
+        <li>
+            <strong>{{ template.name }}</strong> - Price: ${{ template.price }}<br>
+            {{ template.description }}
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>You do not have access to any templates yet.</p>
+{% endif %}
+
+{% endblock %}

@@ -15,6 +15,12 @@
     <p>Your email is verified. Enjoy your experience!</p>
     {% endif %}
 
+    {% if db_access %}
+    <a href="{% url 'dashboard' %}">Db access</a>
+    {% else %}
+    <p>Db access is disabled.</p>
+    {% endif %}
+
 {% else %}
     <p>Welcome! Please <a href="{% url 'account_login' %}">login</a> or <a href="{% url 'account_signup' %}">register</a>.</p>
 {% endif %}
