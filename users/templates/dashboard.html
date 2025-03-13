@@ -7,44 +7,68 @@
 
     <div class="resume-content-container">
         <h2>{{resume_data.user}}'s Resume</h2>
-        <form>
-            <label for="job_title">Job Title</label>
-            <input type="text" name="job_title" value="{{ resume_data.job_title }}">
+        <form class="resume-form">
 
-            <label for="fname">First Name</label>
-            <input type="text" name="fname" value="{{ resume_data.first_name }}">
+            <div class="resume-form-header">
+                <div class="resume-form-header-row">
+                    <div class="resume-form-header-col">
+                        <label for="job_title">Job Title</label>
+                        <input type="text" name="job_title" value="{{ resume_data.job_title }}">
+                    </div>
+                    <div class="resume-form-header-col">
+                        <label for="fname">First Name</label>
+                        <input type="text" name="fname" value="{{ resume_data.first_name }}">
+                    </div>
+                </div>
 
-            <label for="lname">Last Name</label>
-            <input type="text" name="lname" value="{{ resume_data.last_name }}">
+                <div class="resume-form-header-row">
+                    <div class="resume-form-header-col">
+                        <label for="lname">Last Name</label>
+                        <input type="text" name="lname" value="{{ resume_data.last_name }}">
+                    </div>
+                    <div class="resume-form-header-col">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" value="{{ resume_data.email }}">
+                    </div>
+                </div>
 
-            <label for="email">Email</label>
-            <input type="text" name="email" value="{{ resume_data.email }}">
+                <div class="resume-form-header-row">
+                    <div class="resume-form-header-col">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" name="phone" value="{{ resume_data.phone_number }}">
+                    </div>
+                    <div class="resume-form-header-col">
+                        <label for="city">City</label>
+                        <input type="text" name="city" value="{{ resume_data.city }}">
+                    </div>
+                </div>
 
-            <label for="phone">Phone Number</label>
-            <input type="text" name="phone" value="{{ resume_data.phone_number }}">
+            </div>
 
-            <label for="city">City</label>
-            <input type="text" name="city" value="{{ resume_data.city }}">
+            <div class="resume-form-summary">
+                <label for="summary">Summary</label>
+                <input type="text" name="summary" value="{{ resume_data.summary }}">
+            </div>
 
-            <label for="summary">Summary</label>
-            <input type="text" name="summary" value="{{ resume_data.summary }}">
-
-            <h3>Sections</h3>
+        
             {% if sections_data%}
                 {% for section in sections_data%}
-                <h4>{{section.name}} - {{section.order}}</h4>
-                    {% if section.sub.all %}
-                        {% for sub in section.sub.all %}
-                        <h5>{{sub.title}} - {{sub.order}}</h5>
-                        <p>{{sub.description}}</p>
-                        {% endfor %}
-                    {% else%}
-                    <p>no subs</p>
-                    {% endif %}
+                <div class="resume-section-container">
+                    <h4>-----{{section.name}}</h4>
+                        {% if section.sub.all %}
+                            {% for sub in section.sub.all %}
+                            <h5>{{sub.title}} - {{sub.order}}</h5>
+                            <p>{{sub.description}}</p>
+                            {% endfor %}
+                        {% else%}
+                        <p>no subs</p>
+                        {% endif %}
+                </div>
                 {% endfor%}
             {% else %}
             <p>No sections yet</p>
             {% endif %}
+         
 
 
 
