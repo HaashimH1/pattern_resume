@@ -31,12 +31,36 @@ class Order(models.Model):
         return f"Order #{self.id} by {self.user.username}" # This will show the order's title in the admin panel
 
 class Resume(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='resumes')
     template = models.ForeignKey(Template, on_delete=models.SET_NULL, null=True)
-    job_title = models.CharField(max_length=255)
     summary = models.TextField()
+    first_name = models.CharField(max_length=50, default="First name")
+    last_name = models.CharField(max_length=50, default="Last name")
+    job_title = models.CharField(max_length=100, default="Job title")
+    email = models.TextField(default="Email Address")
+    phone_number = models.CharField(max_length=20, default="Phone number")
+    city = models.CharField(max_length=50, default="City")
     last_saved = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f"{self.user.username}'s Resume"  # This will show the resume's title in the admin panel
+        return f"{self.user.username}'s Resume"
+
+
+class ResumeSection(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='sections')
+    name = models.CharField(max_length=100)
+    order = models.PositiveIntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.resume.user.username} - {self.name}: Resume Section"
+
+
+class ResumeSubSection(models.Model):
+    section = models.ForeignKey(ResumeSection, on_delete=models.CASCADE, related_name='sub')
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    order = models.PositiveIntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.section.resume.user.username} - {self.section.name} > {self.title}: Resume SubSection"
 

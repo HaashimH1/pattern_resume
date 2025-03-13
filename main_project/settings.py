@@ -160,6 +160,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # Automatically confirm if user clicks the link
 ACCOUNT_LOGOUT_REDIRECT_URL = "/login/"  # Redirect to login after logout
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 

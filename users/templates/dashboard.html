@@ -2,5 +2,70 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h2>Resume</h2>
+
+<div class="dashboard-container">
+
+    <div class="resume-content-container">
+        <h2>{{resume_data.user}}'s Resume</h2>
+        <form>
+            <label for="job_title">Job Title</label>
+            <input type="text" name="job_title" value="{{ resume_data.job_title }}">
+
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" value="{{ resume_data.first_name }}">
+
+            <label for="lname">Last Name</label>
+            <input type="text" name="lname" value="{{ resume_data.last_name }}">
+
+            <label for="email">Email</label>
+            <input type="text" name="email" value="{{ resume_data.email }}">
+
+            <label for="phone">Phone Number</label>
+            <input type="text" name="phone" value="{{ resume_data.phone_number }}">
+
+            <label for="city">City</label>
+            <input type="text" name="city" value="{{ resume_data.city }}">
+
+            <label for="summary">Summary</label>
+            <input type="text" name="summary" value="{{ resume_data.summary }}">
+
+            <h3>Sections</h3>
+            {% if sections_data%}
+                {% for section in sections_data%}
+                <h4>{{section.name}} - {{section.order}}</h4>
+                    {% if section.sub.all %}
+                        {% for sub in section.sub.all %}
+                        <h5>{{sub.title}} - {{sub.order}}</h5>
+                        <p>{{sub.description}}</p>
+                        {% endfor %}
+                    {% else%}
+                    <p>no subs</p>
+                    {% endif %}
+                {% endfor%}
+            {% else %}
+            <p>No sections yet</p>
+            {% endif %}
+
+
+
+
+        </form>
+    </div>
+    <div class="resume-preview-container">
+        <div class="resume-preview-page">
+       
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

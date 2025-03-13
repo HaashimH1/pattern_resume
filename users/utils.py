@@ -1,4 +1,4 @@
-from .models import UserStatus, Template, Order, Resume
+from .models import UserStatus, Template, Order, Resume, ResumeSection, ResumeSubSection
 from django.core.exceptions import ObjectDoesNotExist
 
 def get_user_status(user):
@@ -39,8 +39,31 @@ def create_resume(user, template_id):
         resume = Resume.objects.create(
             user=user,
             template=template_instance,
-            job_title="Job Title",
-            summary="Your Summary Here"
         )
     
     return resume
+
+
+def get_resume_data(user):
+    try:
+        resume_data = Resume.objects.get(user=user)
+        return resume_data
+    except ObjectDoesNotExist:
+        return None
+    
+def create_section(resume, section_name):
+    section = ResumeSection.objects.create(
+        resume=resume,
+        name=section_name,
+        order=get_section_count(resume.user) + 1
+    )
+    return section
+    
+def get_sections(user):
+    return ResumeSection.objects.filter(resume__user=user).order_by('order')
+    
+def get_section_count(user):
+    return ResumeSection.objects.filter(resume__user=user).count()
+
+def get_subsection_count(user, section_id):
+    return ResumeSubSection.objects.filter(section__resume__user=user, section__id=section_id).count()

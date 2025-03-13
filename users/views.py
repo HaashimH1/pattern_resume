@@ -6,6 +6,10 @@ from users.utils import (
     get_user_status,
     is_resume_created,
     create_resume,
+    get_resume_data,
+    get_section_count,
+    get_subsection_count,
+    get_sections,
     )
 
 
@@ -71,7 +75,15 @@ def dashboard_view(request):
             does_resume_exist = is_resume_created(request.user)
             if not does_resume_exist:
                 return redirect('create_a_resume') 
-            return render(request, 'dashboard.html')
+            
+            resume_data = get_resume_data(request.user)
+            sections_data = get_sections(request.user)
+            
+            
+            return render(request, 'dashboard.html', {
+                'resume_data': resume_data,
+                "sections_data": sections_data,
+                })
         else:
             return redirect('home')
         
