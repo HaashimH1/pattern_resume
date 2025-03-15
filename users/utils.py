@@ -67,3 +67,21 @@ def get_section_count(user):
 
 def get_subsection_count(user, section_id):
     return ResumeSubSection.objects.filter(section__resume__user=user, section__id=section_id).count()
+
+
+def save_resume(user, data):
+    try:
+        resume = Resume.objects.get(id=data.get("resume_id"), user=user)
+    except Resume.DoesNotExist:
+        print("Resume does not exist")
+        return
+
+    resume.job_title = data.get("job_title")
+    resume.first_name = data.get("fname")
+    resume.last_name = data.get("lname")
+    resume.email = data.get("email")
+    resume.phone_number = data.get("phone")
+    resume.city = data.get("city")
+    resume.summary = data.get("summary")
+
+    resume.save()

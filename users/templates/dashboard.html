@@ -7,7 +7,10 @@
 
     <div class="resume-content-container">
         <h2>{{resume_data.user}}'s Resume</h2>
-        <form class="resume-form">
+        <form method="POST"  class="resume-form">
+            {% csrf_token %}
+            <input type="hidden" name="resume_id" value="{{ resume_data.id }}">
+            <button type="submit" name="save_resume">Save</button>
 
             <div class="resume-form-header">
                 <div class="resume-form-header-row">
@@ -56,7 +59,7 @@
                 <div class="resume-section-container">
                     <h3>------------------{{section.name}}----------</h3>
                         {% if section.sub.all %}
-                            {% for sub in section.sub.all %}
+                            {% for sub in section.sub.all|dictsort:"order" %}
                             <h4>{{sub.title}} - Order:{{sub.order}}</h4>
                             <p> - {{sub.description}}</p>
                             {% endfor %}

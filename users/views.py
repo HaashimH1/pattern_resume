@@ -7,9 +7,8 @@ from users.utils import (
     is_resume_created,
     create_resume,
     get_resume_data,
-    get_section_count,
-    get_subsection_count,
     get_sections,
+    save_resume,
     )
 
 
@@ -79,10 +78,17 @@ def dashboard_view(request):
             resume_data = get_resume_data(request.user)
             sections_data = get_sections(request.user)
             
+            if request.method == "POST":
+                if "save_resume" in request.POST:
+                    handle_saving_resume(request)
+                    
+                return redirect('dashboard') # Make sure to redirect
+            
             
             return render(request, 'dashboard.html', {
                 'resume_data': resume_data,
                 "sections_data": sections_data,
+                
                 })
         else:
             return redirect('home')
@@ -100,4 +106,19 @@ def handle_creating_resume(request):
         
         
     
+    
+def handle_saving_resume(request):
+
+    data = {
+        'resume_id': request.POST.get('resume_id'),
+        'job_title': request.POST.get('job_title'),
+        'fname': request.POST.get('fname'),
+        'lname': request.POST.get('lname'),
+        'email': request.POST.get('email'),
+        'phone': request.POST.get('phone'),
+        'city': request.POST.get('city'),
+        'summary': request.POST.get('summary'),
+    }
+     
+    save_resume(request.user, data)
     
