@@ -9,6 +9,7 @@ from users.utils import (
     get_resume_data,
     get_sections,
     save_resume,
+    save_subsection,
     )
 
 
@@ -81,6 +82,8 @@ def dashboard_view(request):
             if request.method == "POST":
                 if "save_resume" in request.POST:
                     handle_saving_resume(request)
+                if "save_subsection" in request.POST:
+                    handle_saving_subsection(request)
                     
                 return redirect('dashboard') # Make sure to redirect
             
@@ -119,6 +122,17 @@ def handle_saving_resume(request):
         'city': request.POST.get('city'),
         'summary': request.POST.get('summary'),
     }
+            
+        
      
     save_resume(request.user, data)
     
+    
+    
+def handle_saving_subsection(request):
+    
+    save_subsection(request.user, {
+        "sub_id": request.POST.get('sub_id'),
+        "sub_title": request.POST.get('sub_title'),
+        "sub_desc": request.POST.get('sub_desc')
+    })

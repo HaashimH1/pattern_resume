@@ -85,3 +85,18 @@ def save_resume(user, data):
     resume.summary = data.get("summary")
 
     resume.save()
+
+
+def save_subsection(user, data):
+    try:
+        sub = ResumeSubSection.objects.get(
+            id=data.get("sub_id"),
+            section__resume__user=user
+        )
+    except ResumeSubSection.DoesNotExist:
+        print("Subsection does not exist or does not belong to the user")
+        return
+    
+    sub.title = data.get("sub_title", sub.title)
+    sub.description = data.get("sub_desc", sub.description)
+    sub.save()

@@ -48,20 +48,46 @@
 
             </div>
 
+        
+
             <div class="resume-form-summary">
                 <label for="summary">Summary</label>
                 <input type="text" name="summary" value="{{ resume_data.summary }}">
             </div>
 
+        </form>
+
         
             {% if sections_data%}
                 {% for section in sections_data%}
                 <div class="resume-section-container">
-                    <h3>------------------{{section.name}}----------</h3>
+                    <div class="section-header">
+                        <h1>{{section.name}} (o{{section.order}})</h1>
+                        <div class="section-header-delete-button">
+                            Delete
+                        </div>
+                    </div>
                         {% if section.sub.all %}
                             {% for sub in section.sub.all|dictsort:"order" %}
-                            <h4>{{sub.title}} - Order:{{sub.order}}</h4>
-                            <p> - {{sub.description}}</p>
+                            <div class="subsection-container">
+                                <div class="subsection-header">
+                                    <p>{{sub.title}} (o{{sub.order}})</p>
+                                    <p>></p>
+                                </div>
+                                <form method="POST" class="subsection-open-container">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="sub_id" value="{{ sub.id }}">
+                                    <div class="resume-form-header-col">
+                                        <label for="sub_title">Title</label>
+                                        <input type="text" name="sub_title" value="{{ sub.title }}">
+                                    </div>
+                                    <div class="resume-form-header-col">
+                                        <label for="sub_desc">Description</label>
+                                        <input type="text" name="sub_desc" value="{{ sub.description }}">
+                                    </div>
+                                    <button type="submit" name="save_subsection">Save sub</button>
+                                </form>
+                            </div>
                             {% endfor %}
                         {% else%}
                         <p>no subs</p>
@@ -76,7 +102,7 @@
 
 
 
-        </form>
+  
     </div>
     <div class="resume-preview-container">
         <div class="resume-preview-page">
