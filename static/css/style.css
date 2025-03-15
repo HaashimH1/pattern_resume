@@ -43,6 +43,7 @@ body {
     height: 100%;
     background-color: #F5F5F5;
     padding: 2em;
+    overflow-y: scroll;
 }
 
 .resume-preview-container{
@@ -66,29 +67,37 @@ body {
 .resume-form{
     display: flex;
     flex-direction: column;
-    gap: 2em;
-    width: 100%;
-}
-
-.resume-form > *{
-    border: #DDDDDD 1px solid;
+    gap: 100px;
     width: 100%;
 }
 
 .resume-form-header{
     display: flex;
     flex-direction: column;
+    gap: 1em;
 }
 
 .resume-form-header-row{
     display: flex;
     flex-direction: row;
+    width: 100%;
     gap: 1em;
 }
 
 .resume-form-header-col{
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+input[type="text"]{
+    width: 100%;
+    height: 3em;
+    background-color: #E9E9E9;
+    border-radius: 3px;
+    padding: .5em 1em;
+    border: none;
+
 }
 
 .resume-form-summary{

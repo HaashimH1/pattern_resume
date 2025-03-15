@@ -54,11 +54,11 @@
             {% if sections_data%}
                 {% for section in sections_data%}
                 <div class="resume-section-container">
-                    <h4>-----{{section.name}}</h4>
+                    <h3>------------------{{section.name}}----------</h3>
                         {% if section.sub.all %}
                             {% for sub in section.sub.all %}
-                            <h5>{{sub.title}} - {{sub.order}}</h5>
-                            <p>{{sub.description}}</p>
+                            <h4>{{sub.title}} - Order:{{sub.order}}</h4>
+                            <p> - {{sub.description}}</p>
                             {% endfor %}
                         {% else%}
                         <p>no subs</p>
