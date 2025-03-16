@@ -68,7 +68,7 @@ body {
 .resume-form{
     display: flex;
     flex-direction: column;
-    gap: 100px;
+    gap: 2em;
     width: 100%;
 }
 
@@ -167,3 +167,27 @@ input[type="text"]{
     display: none;
 }
 
+.add-sub-container{
+    width: 100%;
+    height: 2em;
+
+}
+
+.add-sub-button{
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    padding: .5em 3em;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.add-sub-button:hover{
+
+    background-color: #10a37f;
+    transition: all;
+    transition-duration: .3s;
+
+}

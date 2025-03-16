@@ -115,3 +115,21 @@ def save_section_name(user, data):
     section.name = data.get("section_name", section.name)
     section.save()
 
+
+def add_subsection(user, section_id):
+    try:
+        section = ResumeSection.objects.get(id=section_id, resume__user=user)
+    except ResumeSection.DoesNotExist:
+        print("Section does not exist or does not belong to the user")
+        return None
+
+    order = get_subsection_count(user, section_id) + 1
+
+    subsection = ResumeSubSection.objects.create(
+        section=section,
+        title= f"Subsection {order}",
+        description= f"Description for this sub",
+        order=order
+    )
+
+    return subsection

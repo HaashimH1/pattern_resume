@@ -11,6 +11,7 @@ from users.utils import (
     save_resume,
     save_subsection,
     save_section_name,
+    add_subsection,
     )
 
 
@@ -88,6 +89,8 @@ def dashboard_view(request):
                     handle_saving_subsection(request)
                 elif "save_section_name" in request.POST:
                     handle_saving_section_name(request)
+                elif "add_sub" in request.POST:
+                    handle_adding_sub(request)
                     
                 return redirect('dashboard') # Make sure to redirect
             
@@ -148,3 +151,8 @@ def handle_saving_section_name(request):
         "section_id": request.POST.get('section_id'),
         "section_name": request.POST.get('section_name'),
     })
+    
+    
+def handle_adding_sub(request):
+    
+    add_subsection(request.user, request.POST.get('section_id'))

@@ -104,9 +104,17 @@
                                 </form>
                             </div>
                             {% endfor %}
+
+
                         {% else%}
                         <p>no subs</p>
                         {% endif %}
+
+                    <form method="POST" class="add-sub-container">
+                        {% csrf_token %}
+                        <input type="hidden" name="section_id" value="{{ section.id }}">
+                        <button type="submit" name="add_sub" class="add-sub-button">+ Add one more {{section.name}}</button>
+                    </form>
                 </div>
                 {% endfor%}
             {% else %}
