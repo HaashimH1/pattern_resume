@@ -114,19 +114,30 @@ input[type="text"]{
 }
 
 
-.section-header{
+.section-header-closed, .section-header-open{
     display: flex;
     flex-direction: row;
     gap: 1em;
     align-items: center;
 }
 
-.section-header-delete-button{
+.section-header-open{
+    display: none;
+}
+
+.section-header-delete-button, .section-header-open-button, .section-header-close-button{
     padding: 5px 10px;
     background-color: #F5F5F5;
-    color: #FF3333;
     border-radius: 3px;
     cursor: pointer;
+}
+
+.section-header-open-button{
+    color: orange;
+}
+
+.section-header-delete-button, .section-header-close-button{
+    color: red;
 }
 
 
@@ -145,15 +156,14 @@ input[type="text"]{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    display: none;
 }
 
 
 .subsection-open-container{
-
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 1em;
+    display: none;
 }
 

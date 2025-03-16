@@ -10,6 +10,7 @@ from users.utils import (
     get_sections,
     save_resume,
     save_subsection,
+    save_section_name,
     )
 
 
@@ -76,14 +77,17 @@ def dashboard_view(request):
             if not does_resume_exist:
                 return redirect('create_a_resume') 
             
+            # Dashboard access from here 
             resume_data = get_resume_data(request.user)
             sections_data = get_sections(request.user)
             
             if request.method == "POST":
                 if "save_resume" in request.POST:
                     handle_saving_resume(request)
-                if "save_subsection" in request.POST:
+                elif "save_subsection" in request.POST:
                     handle_saving_subsection(request)
+                elif "save_section_name" in request.POST:
+                    handle_saving_section_name(request)
                     
                 return redirect('dashboard') # Make sure to redirect
             
@@ -94,7 +98,7 @@ def dashboard_view(request):
                 
                 })
         else:
-            return redirect('home')
+            return redirect('home')   
         
         
         
@@ -135,4 +139,12 @@ def handle_saving_subsection(request):
         "sub_id": request.POST.get('sub_id'),
         "sub_title": request.POST.get('sub_title'),
         "sub_desc": request.POST.get('sub_desc')
+    })
+    
+    
+def handle_saving_section_name(request):
+    
+    save_section_name(request.user,{
+        "section_id": request.POST.get('section_id'),
+        "section_name": request.POST.get('section_name'),
     })

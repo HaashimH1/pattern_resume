@@ -10,7 +10,6 @@
         <form method="POST"  class="resume-form">
             {% csrf_token %}
             <input type="hidden" name="resume_id" value="{{ resume_data.id }}">
-            <button type="submit" name="save_resume">Save</button>
 
             <div class="resume-form-header">
                 <div class="resume-form-header-row">
@@ -55,6 +54,8 @@
                 <input type="text" name="summary" value="{{ resume_data.summary }}">
             </div>
 
+            <button type="submit" name="save_resume">Save the above</button>
+
         </form>
 
         
@@ -62,10 +63,24 @@
                 {% for section in sections_data%}
                 <div class="resume-section-container">
                     <div class="section-header">
-                        <h1>{{section.name}} (o{{section.order}})</h1>
-                        <div class="section-header-delete-button">
-                            Delete
+                        <div class="section-header-closed">
+                            <h1>{{section.name}} (o{{section.order}})</h1>
+                            <div class="section-header-open-button">
+                                Edit
+                            </div>
+                            <div class="section-header-delete-button">
+                                Delete
+                            </div>
                         </div>
+                        <form method="POST" class="section-header-open">
+                            {% csrf_token %}
+                            <input type="hidden" name="section_id" value="{{ section.id }}">
+                            <input type="text" name="section_name" value="{{ section.name }}">
+                            <button type="submit" name="save_section_name">Save</button>
+                            <div class="section-header-close-button">
+                                Cancel
+                            </div>
+                        </form>
                     </div>
                         {% if section.sub.all %}
                             {% for sub in section.sub.all|dictsort:"order" %}
