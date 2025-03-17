@@ -120,6 +120,13 @@
             {% else %}
             <p>No sections yet</p>
             {% endif %}
+            
+            <form method="POST" class="add-section-container">
+                {% csrf_token %}
+                <input type="hidden" name="resume_id" value="{{ resume_data.id }}">
+                <button type="submit" name="add_section" class="add-section-button">+ Add Section</button>
+            </form>
+
          
 
 

@@ -167,13 +167,15 @@ input[type="text"]{
     display: none;
 }
 
-.add-sub-container{
+.add-sub-container,
+.add-section-container{
     width: 100%;
     height: 2em;
 
 }
 
-.add-sub-button{
+.add-sub-button,
+.add-section-button{
     width: 100%;
     height: 100%;
     text-align: left;
@@ -184,10 +186,9 @@ input[type="text"]{
     background-color: white;
 }
 
-.add-sub-button:hover{
-
+.add-sub-button:hover,
+.add-section-button:hover{
     background-color: #10a37f;
     transition: all;
     transition-duration: .3s;
-
 }

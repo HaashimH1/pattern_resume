@@ -51,14 +51,6 @@ def get_resume_data(user):
     except ObjectDoesNotExist:
         return None
     
-def create_section(resume, section_name):
-    section = ResumeSection.objects.create(
-        resume=resume,
-        name=section_name,
-        order=get_section_count(resume.user) + 1
-    )
-    return section
-    
 def get_sections(user):
     return ResumeSection.objects.filter(resume__user=user).order_by('order')
     
@@ -133,3 +125,21 @@ def add_subsection(user, section_id):
     )
 
     return subsection
+
+
+def add_section(user, resume_id):
+    try:
+        resume = Resume.objects.get(id=resume_id, user=user)
+    except Resume.DoesNotExist:
+        print("Resume does not exist or does not belong to the user")
+        return None
+
+    order = get_section_count(user) + 1
+
+    section = ResumeSection.objects.create(
+        resume=resume,
+        name=f"Section {order}",
+        order=order
+    )
+
+    return section
