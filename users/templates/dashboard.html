@@ -85,23 +85,47 @@
                         {% if section.sub.all %}
                             {% for sub in section.sub.all|dictsort:"order" %}
                             <div class="subsection-container">
-                                <div class="subsection-header">
-                                    <p>{{sub.title}} (o{{sub.order}})</p>
-                                    <p>></p>
+                                <div class="subsection-change-container">
+                                    C
                                 </div>
-                                <form method="POST" class="subsection-open-container">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="sub_id" value="{{ sub.id }}">
-                                    <div class="resume-form-header-col">
-                                        <label for="sub_title">Title</label>
-                                        <input type="text" name="sub_title" value="{{ sub.title }}">
+                                <div class="subsection-content-container">
+                                    <div class="subsection-header">
+                                        <p>{{sub.title}} (o{{sub.order}})</p>
+                                        <p>></p>
                                     </div>
-                                    <div class="resume-form-header-col">
-                                        <label for="sub_desc">Description</label>
-                                        <input type="text" name="sub_desc" value="{{ sub.description }}">
+                                    <form method="POST" class="subsection-open-container">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="sub_id" value="{{ sub.id }}">
+                                        <div class="resume-form-header-col">
+                                            <label for="sub_title">Title</label>
+                                            <input type="text" name="sub_title" value="{{ sub.title }}">
+                                        </div>
+                                        <div class="resume-form-header-col">
+                                            <label for="sub_desc">Description</label>
+                                            <input type="text" name="sub_desc" value="{{ sub.description }}">
+                                        </div>
+                                        <button type="submit" name="save_subsection">Save sub</button>
+                                    </form>
+                                </div>
+                                <div class="subsection-delete">
+                                    D
+                                    <div class="pop-up-container hidden">
+                                        <p>Are you sure you want to delete this subsection: <br>{{sub.title}}, ID:{{sub.id}}</p>
+                                        <div class="popup-buttons-options-container">
+                                            <form method="POST" class="popup-delete-confirm-container">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="sub_id" value="{{ sub.id }}">
+                                                <input type="hidden" name="delete_sub" value="true"> <!-- Add this hidden input -->
+                                                <button type="submit" name="delete_sub" class="delete-sub-button">CONFIRM</button>
+                                            </form>
+                                            <div class="popup-cancel-button-container">
+                                                CANCEL
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <button type="submit" name="save_subsection">Save sub</button>
-                                </form>
+                                    
+                                </div>
                             </div>
                             {% endfor %}
 
@@ -126,10 +150,6 @@
                 <input type="hidden" name="resume_id" value="{{ resume_data.id }}">
                 <button type="submit" name="add_section" class="add-section-button">+ Add Section</button>
             </form>
-
-         
-
-
 
 
   

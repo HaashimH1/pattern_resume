@@ -1,14 +1,20 @@
 $(document).ready(function(){
 
-    $('.subsection-header').on('click', function(){
-      // Find the closest subsection container, then the form within it.
-      var $form = $(this).closest('.subsection-container').find('.subsection-open-container');
-      if($form.is(':hidden')) {
+  $('.subsection-header').on('click', function(){
+    // Find the closest subsection container, then the form within it.
+    var $form = $(this).closest('.subsection-container').find('.subsection-open-container');
+    
+    // Check if the clicked subsection is already open
+    var isAlreadyOpen = $form.is(':visible');
+
+    // Close all open subsections first
+    $('.subsection-open-container').css('display', 'none');
+
+    // If the clicked subsection was not already open, open it
+    if (!isAlreadyOpen) {
         $form.css('display', 'flex');
-      } else {
-        $form.css('display', 'none');
-      }
-    });
+    }
+});
 
     // When clicking the open button to edit a section
     $(".section-header-open-button").on("click", function(e){
@@ -39,5 +45,29 @@ $(document).ready(function(){
         var $input = $container.find("input[name='section_name']");
         $input.val($input.data("original-value"));
     });
+
+
+
+    // When clicking the delete button to show the popup box
+    $(".subsection-delete").on("click", function(e){
+      e.preventDefault();
+      // Find the closest subsection container, then the popup box within it.
+      var $popupBox = $(this).closest('.subsection-container').find('.pop-up-container');
+      // Toggle the display property of the popup box
+      $popupBox.removeClass("hidden").css('display', 'flex');
+      $(".background-overlay").removeClass("hidden").css("display","block");
+      
+  });
+
+    $(".popup-cancel-button-container").on("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      $(".pop-up-container").addClass("hidden");
+      $(".background-overlay").addClass("hidden");
+  });
+
+  $(".delete-sub-button").on("click", function(e){
+    $(this).closest('form').submit();
+});
 
 });

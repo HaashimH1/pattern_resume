@@ -143,3 +143,18 @@ def add_section(user, resume_id):
     )
 
     return section
+
+def delete_subsection(user, sub_id):
+    try:
+        sub = ResumeSubSection.objects.get(id=sub_id, section__resume__user=user)
+        section_id = sub.section.id
+        sub.delete()
+        rearrange_subsection_orders(user, section_id)
+    except ResumeSubSection.DoesNotExist:
+        print("Subsection does not exist or does not belong to the user")
+
+def rearrange_subsection_orders(user, section_id):
+    subsections = ResumeSubSection.objects.filter(section__id=section_id, section__resume__user=user).order_by('order')
+    for i, sub in enumerate(subsections):
+        sub.order = i + 1
+        sub.save()
