@@ -14,6 +14,7 @@ from users.utils import (
     add_subsection,
     add_section,
     delete_subsection,
+    delete_section,
     )
 
 
@@ -98,6 +99,8 @@ def dashboard_view(request):
                     handle_adding_section(request)
                 elif "delete_sub" in request.POST:
                     handle_deleting_sub(request)
+                elif "delete_section" in request.POST:
+                    handle_deleting_section(request)
                     
                     
                     
@@ -173,3 +176,6 @@ def handle_adding_section(request):
     
 def handle_deleting_sub(request):
     delete_subsection(request.user, request.POST.get("sub_id"))
+    
+def handle_deleting_section(request):
+    delete_section(request.user, request.POST.get("section_id"))

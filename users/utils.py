@@ -158,3 +158,18 @@ def rearrange_subsection_orders(user, section_id):
     for i, sub in enumerate(subsections):
         sub.order = i + 1
         sub.save()
+        
+def delete_section(user, section_id):
+    try:
+        section = ResumeSection.objects.get(id=section_id, resume__user=user)
+        resume_id = section.resume.id
+        section.delete()
+        rearrange_section_orders(user, resume_id)
+    except ResumeSection.DoesNotExist:
+        print("Section does not exist or does not belong to the user")
+
+def rearrange_section_orders(user, resume_id):
+    sections = ResumeSection.objects.filter(resume__id=resume_id, resume__user=user).order_by('order')
+    for i, section in enumerate(sections):
+        section.order = i + 1
+        section.save()
