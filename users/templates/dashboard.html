@@ -171,10 +171,57 @@
   
     </div>
     <div class="resume-preview-container">
+        <div class="resume-preview-options-container">
+            <div class="change-template-button">
+                Templates
+            </div>
+            <div class="download-resume-button">
+                Download
+            </div>
+        </div>
         <div class="resume-preview-page">
        
         </div>
     </div>
+
+
+    <!-- Change template Popup -->
+    <div class="pop-up-container change-template-popup-container hidden">
+        <p>Select a template for your resume:</p>
+        <form method="POST" class="popup-change-template-form">
+            {% csrf_token %}
+            <div class="template-options-container">
+                <!-- User's current template -->
+                <div>
+                    <input type="radio" id="template_{{ resume_data.template.id }}" name="template_id" value="{{ resume_data.template.id }}" checked>
+                    <label for="template_{{ resume_data.template.id }}">{{ resume_data.template.name }} (Current)</label>
+                </div>
+                <!-- Other templates the user has access to -->
+                {% for template in user_status_data.templates %}
+                    {% if template.id != resume_data.template.id %}
+                        <div>
+                            <input type="radio" id="template_{{ template.id }}" name="template_id" value="{{ template.id }}">
+                            <label for="template_{{ template.id }}">{{ template.name }}</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="popup-buttons-options-container">
+                <input type="hidden" name="change_template" value="true">
+                <button type="submit" name="change_template" class="change-template-button">CONFIRM</button>
+                <div class="popup-cancel-button-container">
+                    CANCEL
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    
+    
+
+
+    
+
 
 </div>
 

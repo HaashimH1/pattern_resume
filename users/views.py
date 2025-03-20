@@ -15,6 +15,7 @@ from users.utils import (
     add_section,
     delete_subsection,
     delete_section,
+    change_template,
     )
 
 
@@ -101,6 +102,9 @@ def dashboard_view(request):
                     handle_deleting_sub(request)
                 elif "delete_section" in request.POST:
                     handle_deleting_section(request)
+                elif "change_template" in request.POST:
+                    handle_change_template(request)
+                
                     
                     
                     
@@ -110,6 +114,7 @@ def dashboard_view(request):
             return render(request, 'dashboard.html', {
                 'resume_data': resume_data,
                 "sections_data": sections_data,
+                "user_status_data": user_status_data,
                 
                 })
         else:
@@ -179,3 +184,6 @@ def handle_deleting_sub(request):
     
 def handle_deleting_section(request):
     delete_section(request.user, request.POST.get("section_id"))
+    
+def handle_change_template(request):
+    change_template(request.user, request.POST.get("template_id"))

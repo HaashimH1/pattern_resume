@@ -173,3 +173,19 @@ def rearrange_section_orders(user, resume_id):
     for i, section in enumerate(sections):
         section.order = i + 1
         section.save()
+        
+def change_template(user, template_id):
+    try:
+        resume = Resume.objects.get(user=user)
+    except Resume.DoesNotExist:
+        print("Resume does not exist")
+        return
+    
+    if not does_user_own_template(user, template_id):
+        print("User does not own the chosen template")
+        return None  # User does not own the chosen template
+    else:
+        resume.template = Template.objects.get(id=template_id)
+        resume.save()
+        
+    return resume
