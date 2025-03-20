@@ -180,7 +180,12 @@
             </div>
         </div>
         <div class="resume-preview-page">
-       
+            <!-- Inject the CSS for the template -->
+            <style>
+                {{ template_css|safe }}
+            </style>
+            <!-- Render the processed resume HTML -->
+            {{ rendered_resume|safe }}
         </div>
     </div>
 
@@ -220,7 +225,7 @@
     
 
 
-    
+
 
 
 </div>

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.template import Template, Context
 from django.contrib.auth import logout
 from django.contrib import messages
 from allauth.account.models import EmailAddress 
@@ -16,6 +17,7 @@ from users.utils import (
     delete_subsection,
     delete_section,
     change_template,
+    get_template_content,
     )
 
 
@@ -85,7 +87,16 @@ def dashboard_view(request):
             # Dashboard access from here 
             resume_data = get_resume_data(request.user)
             sections_data = get_sections(request.user)
+            template_data = get_template_content(request.user)
             
+            # Create the context for rendering the stored template
+            render_context = {
+                'resume_data': resume_data,
+                'sections_data': sections_data,
+            }
+            # Compile and render the stored HTML template with the context
+            rendered_resume = Template(template_data['html']).render(Context(render_context))
+                
             if request.method == "POST":
                 print(request.POST)
                 if "save_resume" in request.POST:
@@ -113,8 +124,10 @@ def dashboard_view(request):
             
             return render(request, 'dashboard.html', {
                 'resume_data': resume_data,
-                "sections_data": sections_data,
-                "user_status_data": user_status_data,
+                'sections_data': sections_data,
+                'rendered_resume': rendered_resume,
+                'template_css': template_data['css'],
+                'user_status_data': user_status_data,
                 
                 })
         else:

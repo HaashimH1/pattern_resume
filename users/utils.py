@@ -189,3 +189,19 @@ def change_template(user, template_id):
         resume.save()
         
     return resume
+
+
+def get_template_content(user):
+    """
+    Returns a dictionary containing the HTML and CSS content from the template 
+    associated with the user's resume.
+    """
+    try:
+        resume = Resume.objects.get(user=user)
+        template_instance = resume.template
+        return {
+            "html": template_instance.html_content,
+            "css": template_instance.css_content,
+        }
+    except Resume.DoesNotExist:
+        return {"html": "", "css": ""}  # No resume exists for this user

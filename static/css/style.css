@@ -285,5 +285,6 @@ input[type="text"]{
 .resume-preview-page{
     background-color: white;
     height: 100%;
+    overflow-y: hidden;
     aspect-ratio: 1/1.41421356; /* A4/PDF aspect ratio */
 }
