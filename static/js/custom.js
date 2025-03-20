@@ -52,12 +52,25 @@ $(document).ready(function(){
     $(".subsection-delete").on("click", function(e){
       e.preventDefault();
       // Find the closest subsection container, then the popup box within it.
-      var $popupBox = $(this).closest('.subsection-container').find('.pop-up-container');
+      var $popupBox = $(this).find('.pop-up-container');
       // Toggle the display property of the popup box
       $popupBox.removeClass("hidden").css('display', 'flex');
       $(".background-overlay").removeClass("hidden").css("display","block");
       
   });
+
+  $(".subsection-swap").on("click", function(e){
+    e.preventDefault();
+    // Find the closest subsection container, then the popup box within it.
+    var $popupBox = $(this).find('.pop-up-container');
+    // Toggle the display property of the popup box
+    $popupBox.removeClass("hidden").css('display', 'flex');
+    $(".background-overlay").removeClass("hidden").css("display","block");
+    
+});
+
+  
+  
 
     // When clicking the delete button to show the popup box for sections
     $(".section-header-delete-button").on("click", function(e){
@@ -75,6 +88,8 @@ $(document).ready(function(){
       $(".background-overlay").removeClass("hidden").css("display","block");
   });
 
+
+
     $(".popup-cancel-button-container").on("click", function(e){
       e.preventDefault();
       e.stopPropagation();
@@ -82,7 +97,7 @@ $(document).ready(function(){
       $(".background-overlay").addClass("hidden");
   });
 
-  $(".delete-sub-button, .delete-section-button, .change-template-button").on("click", function(e){
+  $(".delete-sub-button, .delete-section-button, .change-template-button, .swap-sub-button").on("click", function(e){
     $(this).closest('form').submit();
 });
 

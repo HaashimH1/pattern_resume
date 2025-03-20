@@ -18,6 +18,7 @@ from users.utils import (
     delete_section,
     change_template,
     get_template_content,
+    swap_sub,
     )
 
 
@@ -115,6 +116,8 @@ def dashboard_view(request):
                     handle_deleting_section(request)
                 elif "change_template" in request.POST:
                     handle_change_template(request)
+                elif "swap_sub" in request.POST:
+                    handle_swap_sub(request)
                 
                     
                     
@@ -200,3 +203,7 @@ def handle_deleting_section(request):
     
 def handle_change_template(request):
     change_template(request.user, request.POST.get("template_id"))
+    
+    
+def handle_swap_sub(request):
+   swap_sub(request.user, request.POST.get("sub_a_id"), request.POST.get("sub_b_id"))

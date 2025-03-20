@@ -205,3 +205,19 @@ def get_template_content(user):
         }
     except Resume.DoesNotExist:
         return {"html": "", "css": ""}  # No resume exists for this user
+    
+    
+def swap_sub(user, sub_a_id, sub_b_id):
+    try:
+        sub_a = ResumeSubSection.objects.get(id=sub_a_id, section__resume__user=user)
+        sub_b = ResumeSubSection.objects.get(id=sub_b_id, section__resume__user=user)
+        
+        # Swap the order values
+        sub_a.order, sub_b.order = sub_b.order, sub_a.order
+        
+        # Save the changes
+        sub_a.save()
+        sub_b.save()
+        
+    except ResumeSubSection.DoesNotExist:
+        print("One or both subsections do not exist or do not belong to the user")

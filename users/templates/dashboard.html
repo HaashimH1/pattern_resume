@@ -100,8 +100,28 @@
                         {% if section.sub.all %}
                             {% for sub in section.sub.all|dictsort:"order" %}
                             <div class="subsection-container">
-                                <div class="subsection-change-container">
+                                <div class="subsection-swap">
                                     C
+                                    <div class="pop-up-container hidden">
+                                        <p>Change this sub<br>{{sub.title}}, ID:{{sub.id}}</p>
+                                        {% for swap_sub in section.sub.all|dictsort:"order" %}
+                                            {% if swap_sub.id != sub.id %}
+                                            <form method="POST" class="popup-swap-confirm-container">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="sub_a_id" value="{{ sub.id }}">
+                                                <input type="hidden" name="sub_b_id" value="{{ swap_sub.id }}">
+                                                <input type="hidden" name="swap_sub" value="true">
+                                                <button type="submit" class="swap-sub-button">Swap with {{swap_sub.title}}</button>
+                                            </form>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div class="popup-buttons-options-container">
+                                            <div class="popup-cancel-button-container">
+                                                CANCEL
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div class="subsection-content-container">
                                     <div class="subsection-header">

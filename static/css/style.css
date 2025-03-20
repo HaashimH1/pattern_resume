@@ -201,14 +201,21 @@ input[type="text"]{
 }
 
 
-.subsection-delete{
+.subsection-delete, .subsection-swap{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFDDDD;
     border-radius: 3px;
     cursor: pointer;
     padding: 5px;
+}
+
+.subsection-delete{
+    background-color: red;
+}
+
+.subsection-swap{
+    background-color: orange;
 }
 
 .pop-up-container{
