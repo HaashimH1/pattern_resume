@@ -221,3 +221,19 @@ def swap_sub(user, sub_a_id, sub_b_id):
         
     except ResumeSubSection.DoesNotExist:
         print("One or both subsections do not exist or do not belong to the user")
+        
+        
+def swap_section(user, section_a_id, section_b_id):
+    try:
+        section_a = ResumeSection.objects.get(id=section_a_id, resume__user=user)
+        section_b = ResumeSection.objects.get(id=section_b_id, resume__user=user)
+        
+        # Swap the order values
+        section_a.order, section_b.order = section_b.order, section_a.order
+        
+        # Save the changes
+        section_a.save()
+        section_b.save()
+        
+    except ResumeSection.DoesNotExist:
+        print("One or both sections do not exist or do not belong to the user")

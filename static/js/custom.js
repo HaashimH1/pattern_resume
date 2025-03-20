@@ -73,14 +73,16 @@ $(document).ready(function(){
   
 
     // When clicking the delete button to show the popup box for sections
-    $(".section-header-delete-button").on("click", function(e){
+    $(".section-header-delete-button, .section-header-swap-button").on("click", function(e){
       e.preventDefault();
       // Find the closest section container, then the popup box within it.
-      var $popupBox = $(this).closest('.section-header-closed').find('.pop-up-container');
+      var $popupBox = $(this).find('.pop-up-container');
       // Toggle the display property of the popup box
       $popupBox.removeClass("hidden").css('display', 'flex');
       $(".background-overlay").removeClass("hidden").css("display","block");
   });
+
+
 
     $(".change-template-button").on("click", function(e){
       e.preventDefault();
@@ -97,8 +99,25 @@ $(document).ready(function(){
       $(".background-overlay").addClass("hidden");
   });
 
-  $(".delete-sub-button, .delete-section-button, .change-template-button, .swap-sub-button").on("click", function(e){
+  $(".delete-sub-button, .delete-section-button, .change-template-button, .swap-sub-button, .swap-section-button").on("click", function(e){
     $(this).closest('form').submit();
 });
+
+// Function to auto-resize the textarea
+function autoResizeTextarea(textarea) {
+  textarea.style.height = 'auto';
+  textarea.style.height = textarea.scrollHeight + 'px';
+}
+
+// Apply the auto-resize function to the textarea on change
+$('textarea').on('input', function() {
+  autoResizeTextarea(this);
+});
+
+// Apply the auto-resize function to the textarea on page load
+$('textarea').each(function() {
+  autoResizeTextarea(this);
+});
+
 
 });

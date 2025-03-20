@@ -51,7 +51,7 @@
 
             <div class="resume-form-summary">
                 <label for="summary">Summary</label>
-                <input type="text" name="summary" value="{{ resume_data.summary }}">
+                <textarea name="summary" class="big-text-box" rows="3">{{ resume_data.summary }}</textarea>
             </div>
 
             <button type="submit" name="save_resume">Save the above</button>
@@ -70,22 +70,46 @@
                             </div>
                             <div class="section-header-delete-button">
                                 Delete
-                            </div>
-                            <div class="pop-up-container hidden">
-                                <p>Are you sure you want to delete this section: <br>{{section.name}}, ID:{{section.id}}</p>
-                                <div class="popup-buttons-options-container">
-                                    <form method="POST" class="popup-delete-confirm-container">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="section_id" value="{{ section.id }}">
-                                        <input type="hidden" name="delete_section" value="true">
-                                        <button type="submit" name="delete_section" class="delete-section-button">CONFIRM</button>
-                                    </form>
-                                    <div class="popup-cancel-button-container">
-                                        CANCEL
+                                <div class="pop-up-container hidden">
+                                    <p>Are you sure you want to delete this section: <br>{{section.name}}, ID:{{section.id}}</p>
+                                    <div class="popup-buttons-options-container">
+                                        <form method="POST" class="popup-delete-confirm-container">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="section_id" value="{{ section.id }}">
+                                            <input type="hidden" name="delete_section" value="true">
+                                            <button type="submit" name="delete_section" class="delete-section-button">CONFIRM</button>
+                                        </form>
+                                        <div class="popup-cancel-button-container">
+                                            CANCEL
+                                        </div>
                                     </div>
+                
                                 </div>
-            
                             </div>
+                            <div class="section-header-swap-button">
+                                Swap
+                                <div class="pop-up-container hidden">
+                                    <p>Are you sure you want to swap this section: <br>{{section.name}}, ID:{{section.id}}</p>
+                                    {% for swap_section in sections_data%}
+                                        {% if swap_section.id != section.id %}
+                                        <form method="POST" class="popup-swap-confirm-container">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="section_a_id" value="{{ section.id }}">
+                                            <input type="hidden" name="section_b_id" value="{{ swap_section.id }}">
+                                            <input type="hidden" name="swap_section" value="true">
+                                            <button type="submit" class="swap-section-button">Swap with {{swap_section.name}}</button>
+                                        </form>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div class="popup-buttons-options-container">
+                                        <div class="popup-cancel-button-container">
+                                            CANCEL
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+                            
                         </div>
                         <form method="POST" class="section-header-open">
                             {% csrf_token %}

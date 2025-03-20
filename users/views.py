@@ -19,6 +19,7 @@ from users.utils import (
     change_template,
     get_template_content,
     swap_sub,
+    swap_section,
     )
 
 
@@ -118,6 +119,8 @@ def dashboard_view(request):
                     handle_change_template(request)
                 elif "swap_sub" in request.POST:
                     handle_swap_sub(request)
+                elif "swap_section" in request.POST:
+                    handle_swap_section(request)
                 
                     
                     
@@ -207,3 +210,7 @@ def handle_change_template(request):
     
 def handle_swap_sub(request):
    swap_sub(request.user, request.POST.get("sub_a_id"), request.POST.get("sub_b_id"))
+   
+   
+def handle_swap_section(request):
+    swap_section(request.user, request.POST.get("section_a_id"), request.POST.get("section_b_id"))

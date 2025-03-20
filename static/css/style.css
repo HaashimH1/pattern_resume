@@ -98,6 +98,20 @@ input[type="text"]{
 
 }
 
+.big-text-box{
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  resize: none;
+  background-color: #E9E9E9;
+  border-radius: 3px;
+  padding: .5em 1em;
+  border: none;
+  font-family: "Nunito";
+}
+
 .resume-form-summary{
     display: flex;
     flex-direction: column;
@@ -122,7 +136,7 @@ input[type="text"]{
     display: none;
 }
 
-.section-header-delete-button, .section-header-open-button, .section-header-close-button{
+.section-header-delete-button, .section-header-open-button, .section-header-close-button, .section-header-swap-button{
     padding: 5px 10px;
     background-color: #F5F5F5;
     border-radius: 3px;
@@ -130,11 +144,15 @@ input[type="text"]{
 }
 
 .section-header-open-button{
-    color: orange;
+    color: green;
 }
 
 .section-header-delete-button, .section-header-close-button{
     color: red;
+}
+
+.section-header-swap-button{
+    color: orange;
 }
 
 
