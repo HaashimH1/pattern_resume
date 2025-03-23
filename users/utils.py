@@ -237,3 +237,5 @@ def swap_section(user, section_a_id, section_b_id):
         
     except ResumeSection.DoesNotExist:
         print("One or both sections do not exist or do not belong to the user")
+        
+        

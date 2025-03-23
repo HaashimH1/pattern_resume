@@ -1,5 +1,8 @@
-from django.shortcuts import render, redirect
+import io
+from django.http import HttpResponse
 from django.template import Template, Context
+from xhtml2pdf import pisa
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from allauth.account.models import EmailAddress 
@@ -138,8 +141,63 @@ def dashboard_view(request):
                 })
         else:
             return redirect('home')   
+          
+          
+def download_resume_pdf(request):
+    if not request.user.is_authenticated:
+        return redirect('account_login')
+    
+    # Ensure user has a resume created
+    if not is_resume_created(request.user):
+        return redirect('create_a_resume')
+    
+    # Get resume data and sections
+    resume_data = get_resume_data(request.user)
+    sections_data = get_sections(request.user)
+    
+    # Retrieve the template content from the resume's chosen template
+    # get_template_content returns a dictionary with keys "html" and "css"
+    template_data = get_template_content(request.user)
+    
+    # Create the context to be used in the template
+    render_context = {
+        'resume_data': resume_data,
+        'sections_data': sections_data,
+    }
+    
+    # Render the stored HTML template (which is a string) with the context
+    rendered_html = Template(template_data['html']).render(Context(render_context))
+    
+    # Build a complete HTML document by injecting the CSS into a <style> tag
+    html_string = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>{resume_data.first_name} {resume_data.last_name} - Resume</title>
+      <style>
+        {template_data['css']}
+      </style>
+    </head>
+    <body>
+      {rendered_html}
+    </body>
+    </html>
+    """
+    
+    # Generate PDF using xhtml2pdf
+    result = io.BytesIO()
+    pdf = pisa.CreatePDF(io.StringIO(html_string), dest=result)
+    
+    if not pdf.err:
+        # Return PDF as an inline response (opens in a new tab)
+        response = HttpResponse(result.getvalue(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="resume.pdf"'
+        return response
+    else:
+        return HttpResponse("Error generating PDF", status=400)
         
-        
+
         
 def handle_creating_resume(request):
 
@@ -190,7 +248,6 @@ def handle_saving_section_name(request):
     
     
 def handle_adding_sub(request):
-    
     add_subsection(request.user, request.POST.get("section_id"))
     
     

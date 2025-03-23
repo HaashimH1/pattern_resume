@@ -7,6 +7,7 @@ from allauth.account.views import (
     PasswordResetDoneView,
     EmailVerificationSentView,
 )
+from .views import download_resume_pdf
 
 urlpatterns = [
     path('', views.home_view, name='home'),
@@ -21,4 +22,6 @@ urlpatterns = [
     
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('create-a-resume/', views.create_a_resume_view, name='create_a_resume'),
+    
+    path('download_resume/', download_resume_pdf, name='download_resume_pdf'),
 ]

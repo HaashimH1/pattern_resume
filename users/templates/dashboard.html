@@ -219,9 +219,10 @@
             <div class="change-template-button">
                 Templates
             </div>
-            <div class="download-resume-button">
-                Download
-            </div>
+            <!-- Download button opens in a new tab -->
+            <a href="{% url 'download_resume_pdf' %}" target="_blank" class="download-resume-button">
+                Download Resume PDF
+            </a>
         </div>
         <div class="resume-preview-page">
             <!-- Inject the CSS for the template -->
