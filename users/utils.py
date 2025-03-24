@@ -239,3 +239,8 @@ def swap_section(user, section_a_id, section_b_id):
         print("One or both sections do not exist or do not belong to the user")
         
         
+        
+def get_all_templates():
+    return Template.objects.all().order_by('id').values()   # Returns list of dictionaries for templates
+        
+        

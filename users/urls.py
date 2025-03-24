@@ -24,4 +24,8 @@ urlpatterns = [
     path('create-a-resume/', views.create_a_resume_view, name='create_a_resume'),
     
     path('download_resume/', download_resume_pdf, name='download_resume_pdf'),
+    
+    path('view-templates/', views.view_templates, name='view_templates'),
+    
+    
 ]

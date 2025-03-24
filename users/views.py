@@ -23,6 +23,7 @@ from users.utils import (
     get_template_content,
     swap_sub,
     swap_section,
+    get_all_templates,
     )
 
 
@@ -55,6 +56,12 @@ def resend_verification_email(request):
             messages.info(request, "Your email is already verified.")
 
     return redirect("account_email_verification_sent")
+
+
+def view_templates(request):
+    return render(request, 'view_templates.html',{
+        "templates": get_all_templates()
+    })
 
 def create_a_resume_view(request):
     
@@ -155,8 +162,6 @@ def download_resume_pdf(request):
     resume_data = get_resume_data(request.user)
     sections_data = get_sections(request.user)
     
-    # Retrieve the template content from the resume's chosen template
-    # get_template_content returns a dictionary with keys "html" and "css"
     template_data = get_template_content(request.user)
     
     # Create the context to be used in the template
