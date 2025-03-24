@@ -10,7 +10,7 @@
     <div class="template-content-container">
         <h3>{{ template.name }}</h3>
         <p>{{ template.description }}</p>
-        <a href="{% url 'view_templates'%}">Buy</a>
+        <a href="{% url 'buy_template' template.id %}">Buy</a>
     </div>
     {% endfor %}
 
