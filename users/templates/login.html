@@ -2,6 +2,13 @@
 
 
 {% block content %}
+
+{% load socialaccount %}
+<a href="{% provider_login_url 'google' process='login' %}">
+    Login with Google
+  </a>
+
+
 <div class="container">
     <h2>Login</h2>
 

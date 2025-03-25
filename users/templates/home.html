@@ -1,7 +1,36 @@
 {% extends 'base.html' %} 
+{% load static %}
 
 
 {% block content %}
+
+
+<div class="hero">
+    <div class="hero-content-container">
+
+        <h1>Hero Title</h1>
+        <p>Hero Subtitle</p>
+        <div class="hero-buttons-container">
+            <a href="{% url 'view_templates' %}" class="hero-button">View Templates</a>
+            <a href="{% url 'account_login' %}" class="hero-button">Login</a>
+        </div>
+
+    </div>
+    <div class="hero-image-container">
+        <img src="{% static 'images/placeholder.png' %}" alt="hero image" class="hero-image">
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- temp -->
+
 <h1>Home</h1>
 
 <a href="{% url 'view_templates' %}">View all templates</a>
