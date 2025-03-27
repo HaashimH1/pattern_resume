@@ -30,7 +30,9 @@ def create_checkout_session(user, template_id, request):
         success_url=request.build_absolute_uri(
             f"{request.build_absolute_uri('/stripe/checkout_success/')}?session_id={{CHECKOUT_SESSION_ID}}"
         ),
-        cancel_url=request.build_absolute_uri('/stripe/checkout_cancel/'),
+        cancel_url=request.build_absolute_uri(
+            f"/stripe/checkout_cancel/{template_id}/"
+        ),
         metadata={
             'user_id': user.id,
             'template_id': template_obj.id,

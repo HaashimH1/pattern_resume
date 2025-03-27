@@ -1,11 +1,13 @@
 import stripe
 from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from allauth.account.models import EmailAddress
+from users.models import Template
 
 # utils
 from users.utils import does_user_own_template
@@ -13,17 +15,34 @@ from .utils import create_checkout_session, update_user_status, record_order
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-@login_required
+
 def buy_template(request, template_id):
     """
-    If the user already owns the template, redirect to home.
-    Otherwise, create a Stripe Checkout session and redirect the user to it.
+    Handles the purchase of a template:
+    - Redirects unauthenticated users to the login page.
+    - Redirects users with unverified emails to the email verification page.
+    - Redirects users who already own the template to the home page.
+    - Creates a Stripe Checkout session and redirects the user to it.
     """
-    if does_user_own_template(request.user, template_id):
-        # will redirect to a more suitable URL later in production
-        return redirect('home')
     
+    if not request.user.is_authenticated:
+        return redirect('account_login')
+    
+    # Check if the user's email is verified
+    email_verified = EmailAddress.objects.filter(user=request.user, verified=True).exists()
+    if not email_verified:
+        # Redirect to the email verification page
+        return redirect('account_email_verification_sent')
+
+    # Check if the user already owns the template
+    if does_user_own_template(request.user, template_id):
+        # Redirect to the home page
+        return redirect('home')
+
+    # Create a Stripe Checkout session
     session = create_checkout_session(request.user, template_id, request)
+
+    # Redirect the user to the Stripe Checkout session
     return redirect(session.url)
 
 @csrf_exempt
@@ -74,10 +93,18 @@ def checkout_success(request):
     """
     A simple success view for a successful checkout.
     """
-    return HttpResponse("Payment succeeded. Your template has been purchased.")
+    
+    
+    
+    
 
-def checkout_cancel(request):
+def checkout_cancel(request, template_id):
     """
-    A simple view for a canceled checkout session.
+    A view for a canceled checkout session.
+    Renders the 'checkout_cancel.html' template with the template object passed as context.
     """
-    return HttpResponse("Payment canceled. Please try again.")
+    # Fetch the template object using the provided template_id
+    template = get_object_or_404(Template, id=template_id)
+
+    # Render the 'checkout_cancel.html' template with the template object
+    return render(request, 'checkout_cancel.html', {'template': template})

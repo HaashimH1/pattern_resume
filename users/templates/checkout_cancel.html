@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}Cancelled{% endblock %}
+
+{% block content %}
+
+
+<div class="view-templates-container checkout-cancel-container">
+
+    <h1>PAYMENT CANCELLED</h1>
+    <div class="template-container">
+        <div class="template-img-container">
+            <img src="{% static 'images/placeholder.png' %}" alt="template image" class="template-img">
+        </div>
+        <div class="template-content-container">
+            <h3>{{ template.name }}</h3>
+            <a href="{% url 'buy_template' template.id %}" class="buy-button" >Checkout Again | £{{template.price}}</a>
+            <a class="template-owned-container go-back" href="{% url 'view_templates'%}">
+                <img src="{% static 'images/back_icon.png' %}" alt="checkmark" class="nav-icon-img">
+                <p>Back to Templates</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+    
+
+{% endblock %}
