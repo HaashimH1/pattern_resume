@@ -62,6 +62,15 @@ def view_templates(request):
     return render(request, 'view_templates.html',{
         "templates": get_all_templates()
     })
+    
+def orders_view(request):
+    
+    if not request.user.is_authenticated:
+        return redirect('account_login')
+
+    return render(request, 'orders.html', {
+        "templates": request.user.userstatus.templates.all,
+    })
 
 def create_a_resume_view(request):
     

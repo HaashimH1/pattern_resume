@@ -27,5 +27,7 @@ urlpatterns = [
     
     path('view-templates/', views.view_templates, name='view_templates'),
     
+    path('orders/', views.orders_view, name='orders'),
+    
     
 ]

@@ -1,0 +1,40 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+
+{% if templates %}
+<h1>Orders</h1>
+
+
+<div class="view-templates-container">
+ 
+        {% for template in templates %}
+        <div class="template-container">
+            <div class="template-img-container">
+                <img src="{% static 'images/placeholder.png' %}" alt="template image" class="template-img">
+            </div>
+            <div class="template-content-container">
+                <h3>{{ template.name }}</h3>
+                <p>{{ template.description }}</p>
+                <div class="template-owned-container">
+                    <img src="{% static 'images/verify_icon.png' %}" alt="checkmark" class="nav-icon-img">
+                    <p>Owned</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+</div>
+
+{% else %}
+
+    <a class="template-owned-container go-back" href="{% url 'view_templates'%}">
+        <img src="{% static 'images/back_icon.png' %}" alt="checkmark" class="nav-icon-img">
+        <p> No orders | Back to Templates</p>
+    </a>
+{% endif %}
+
+    
+
+{% endblock %}

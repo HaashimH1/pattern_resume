@@ -1,6 +1,6 @@
 import stripe
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -89,14 +89,13 @@ def stripe_webhook(request):
     print("Webhook processed successfully")
     return HttpResponse(status=200)
 
-def checkout_success(request):
+def checkout_success(request, template_id):
     """
-    A simple success view for a successful checkout.
+    A view for a successful checkout session.
+    Renders the 'checkout_success.html' template.
     """
-    
-    
-    
-    
+    template = get_object_or_404(Template, id=template_id)
+    return render(request, 'checkout_success.html', {'template': template})
 
 def checkout_cancel(request, template_id):
     """
