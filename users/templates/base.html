@@ -73,13 +73,21 @@
                 </a>
                 {% else %}
                 {% if user.userstatus.has_purchased %}
-                    <a href="{% url 'dashboard' %}" class="side-sub-container">
+                    <a href="{% url 'dashboard' %}" class="side-sub-container side-dashboard">
                         <img src="{% static 'images/edit_resume_icon.png' %}" class="nav-icon-img">
                         <p>Dashboard</p>
                     </a>
                 {% endif %}
+
+                {% if not user.emailaddress_set.first.verified %}
+                <a href="{% url 'account_email_verification_sent' %}" class="side-sub-container side-verify">
+                    <img src="{% static 'images/verify_icon.png' %}" class="nav-icon-img">
+                    <p>Verify Email</p>
+                </a>
+                {% endif %}
+
                 <a href="{% url 'view_templates' %}" class="side-sub-container">
-                    <img src="{% static 'images/profile_icon.png' %}" class="nav-icon-img">
+                    <img src="{% static 'images/orders_icon.png' %}" class="nav-icon-img">
                     <p>Orders</p>
                 </a>
 
@@ -87,6 +95,7 @@
                     <img src="{% static 'images/profile_icon.png' %}" class="nav-icon-img">
                     <p>Logout</p>
                 </a>
+                
                 {% endif %}
 
             </div>

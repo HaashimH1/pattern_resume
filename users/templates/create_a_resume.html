@@ -1,19 +1,21 @@
-{% extends 'base.html' %} 
-{% block title %}Create a resume{% endblock %}
+{% extends 'base.html' %}
+{% block title %}Create a Resume{% endblock %}
 
 {% block content %}
-
-<h2>You need to choose a template to start creating your resume</h2>
-<ul>
+<div class="create-resume-container">
+  <h2>Choose a template to start</h2>
+  <div class="template-list">
     {% for template in templates %}
-    {{ template.id }}
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="template_id" value="{{ template.id }}">
-        <button type="submit" name="create_resume">
-          {{ template.name }} - {{ template.description }}
-        </button>
-      </form>
+      <div class="template-card">
+        <h3>{{ template.name }}</h3>
+        <p>{{ template.description }}</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="template_id" value="{{ template.id }}">
+          <button type="submit" name="create_resume">Use this Template</button>
+        </form>
+      </div>
     {% endfor %}
-</ul>
+  </div>
+</div>
 {% endblock %}

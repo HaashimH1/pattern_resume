@@ -1,18 +1,6 @@
 $(document).ready(function(){
 
 
-  function scalePreview() {
-    var $previewPage = $('.resume-preview-page');
-    var previewPageWidth = $previewPage.width();
-    var fontSize = previewPageWidth / 793 + 'em';
-    $previewPage.css('font-size', fontSize);
-}
-
-// Call the scalePreview function on page load and window resize
-scalePreview();
-$(window).resize(scalePreview);
-
-
   $('.subsection-header').on('click', function(){
     // Find the closest subsection container, then the form within it.
     var $form = $(this).closest('.subsection-container').find('.subsection-open-container');
@@ -123,12 +111,12 @@ function autoResizeTextarea(textarea) {
 }
 
 // Apply the auto-resize function to the textarea on change
-$('textarea').on('input', function() {
+$('.big-text-box').on('input', function() {
   autoResizeTextarea(this);
 });
 
 // Apply the auto-resize function to the textarea on page load
-$('textarea').each(function() {
+$('.big-text-box').each(function() {
   autoResizeTextarea(this);
 });
 
@@ -151,6 +139,18 @@ $(".close-side-menu-button").on("click", function () {
        display: "none", // Ensure the sidebar is visible
        right: "-320px"
   });
+
+});
+
+  $(".preview-resume-button").on("click", function () {
+    // Slide in the sidebar menu from right to left
+    $(".resume-preview-container").css("display", "flex");
+});
+
+
+$(".close-preview-button").on("click", function () {
+  // Slide in the sidebar menu from right to left
+  $(".resume-preview-container").css("display", "none");
 });
 
 
