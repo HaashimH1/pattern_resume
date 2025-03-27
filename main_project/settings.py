@@ -162,6 +162,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_ADAPTER = 'users.adapter.MySocialAccountAdapter'
 
 
 LOGIN_REDIRECT_URL = "/"  # Redirect to home page after login
