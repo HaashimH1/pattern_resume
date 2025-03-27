@@ -330,7 +330,7 @@ input[type="text"]{
 
 .nav{
     width: 100%;
-    height: 64px;
+    height: 60px;
 }
 
 .nav-container{
@@ -352,20 +352,131 @@ input[type="text"]{
 }
 
 .nav-logo{
-    height: 60px;
+    height: 56px;
 }
-.nav-right-container{
+.nav-right-container, .nav-left-container{
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 5px;
+}
+
+.extend-nav-button{
+    cursor: pointer;
+}
+
+.nav-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 7px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-button:hover{
+    background-color: #DDDDDD;
+
+    transition: all;
+    transition-duration: .3s;
+}
+
+.nav-icon-img{
+    height: 26px;
+}
+
+.profile-logged {
+    position: relative; 
+    left: 4px;
+    z-index: 1; /* Ensures the icon is on top of the username div */
+}
+
+.nav-username-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav-username{
+    text-align: center;
+    padding: 3px;
+    border-bottom: 2px solid black;
+    font-size: .8em;
+    max-width: 100px;
+    overflow: hidden; /* Hide any overflowing content */
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncated text */
+}
+
+.side-menu-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 320px;
+    height: 100vh;
+    background-color: white;
+    padding: 1em;
+    position: absolute;
+    right: -320px;
+    top: 0;
+    display: none;
+    z-index: 11;
     gap: 1em;
 }
-.toggle-extend-nav-button{
+
+.close-side-menu-button{
     cursor: pointer;
-    text-align: center;
-    background-color: #DDDDDD;
-    border-radius: 5px;
-    padding: 3px 5px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-side-menu-button:hover{
+    background-color: #ffcccc;
+    transition: all;
+    transition-duration: .3s;
+}
+
+.side-section-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    gap: 5px;
+}
+
+.side-sub-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.side-sub-container:hover{
+    background-color: #E5E5E5;
+    transition: all;
+    transition-duration: .3s;
+}
+
+.side-logout{
+    background-color: #ffEEEE;
+}
+
+.side-logout:hover{
+    background-color: #ffcccc;
 }
 
 .hero{

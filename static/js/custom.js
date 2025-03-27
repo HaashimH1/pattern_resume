@@ -1,5 +1,18 @@
 $(document).ready(function(){
 
+
+  function scalePreview() {
+    var $previewPage = $('.resume-preview-page');
+    var previewPageWidth = $previewPage.width();
+    var fontSize = previewPageWidth / 793 + 'em';
+    $previewPage.css('font-size', fontSize);
+}
+
+// Call the scalePreview function on page load and window resize
+scalePreview();
+$(window).resize(scalePreview);
+
+
   $('.subsection-header').on('click', function(){
     // Find the closest subsection container, then the form within it.
     var $form = $(this).closest('.subsection-container').find('.subsection-open-container');
@@ -118,6 +131,31 @@ $('textarea').on('input', function() {
 $('textarea').each(function() {
   autoResizeTextarea(this);
 });
+
+$(".extend-nav-button").on("click", function () {
+  // Show the background overlay with a fade-in effect
+  $(".background-overlay").removeClass("hidden").css("display", "block");
+
+  // Slide in the sidebar menu from right to left
+  $(".side-menu-container").css({
+       display: "flex", // Ensure the sidebar is visible
+  }).animate({right: "0"}, 200); // Slide in over 500ms;
+});
+
+$(".close-side-menu-button").on("click", function () {
+  // Show the background overlay with a fade-in effect
+  $(".background-overlay").addClass("hidden").css("display", "flex");
+
+  // Slide in the sidebar menu from right to left
+  $(".side-menu-container").css({
+       display: "none", // Ensure the sidebar is visible
+       right: "-320px"
+  });
+});
+
+
+
+
 
 
 });

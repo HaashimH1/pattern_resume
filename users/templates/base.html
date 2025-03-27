@@ -25,27 +25,85 @@
                     <img src="{% static 'images/placeholder.png' %}" alt="logo" class="nav-logo">
                 </a>
 
+                {% if user.is_authenticated %}
+                <div class="nav-username-container">
+                    <img src="{% static 'images/profile_icon.png' %}" class="nav-icon-img profile-logged">
+                    <p class="nav-username">{{ user.username }}</p>
+                </div>
+                {% endif %}
+
             </div>
             <div class="nav-right-container">
 
-                {% if user.is_authenticated %}
-                <a href="{% url 'dashboard' %}">DB</a>
-                <a href="{% url 'logout' %}">Logout</a>
-    
-
+                {% if not user.is_authenticated %}
+                <a href="{% url 'account_login' %}" class="nav-button">
+                    <img src="{% static 'images/profile_icon.png' %}" class="nav-icon-img">
+                </a>
                 {% else %}
+                    {% if user.userstatus.has_purchased %}
+                    <a href="{% url 'dashboard' %}" class="nav-button">
+                        <img src="{% static 'images/edit_resume_icon.png' %}" class="nav-icon-img">
+                    </a>
+                    {% endif %}
                 {% endif %}
 
-                <div class="toggle-extend-nav-button">
-                    \/
+                <a href="{% url 'view_templates' %}" class="nav-button">
+                    <img src="{% static 'images/search_icon.png' %}" class="nav-icon-img">
+                </a>
+
+                <div class="nav-button extend-nav-button">
+                    <img src="{% static 'images/menu_burger_icon.png' %}" class="nav-icon-img">
                 </div>
 
-            </div>
-                
+            </div>  
         </nav>
+
+        <div class="side-menu-container">
+
+            <div class="close-side-menu-button">
+                <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="nav-icon-img">
+            </div>
+
+            <div class="side-section-container">
+                <h3>Account</h3>
+                {% if not user.is_authenticated%}
+                <a href="{% url 'account_login' %}" class="side-sub-container">
+                    <img src="{% static 'images/profile_icon.png' %}" class="nav-icon-img">
+                    <p>Login / Register</p>
+                </a>
+                {% else %}
+                {% if user.userstatus.has_purchased %}
+                    <a href="{% url 'dashboard' %}" class="side-sub-container">
+                        <img src="{% static 'images/edit_resume_icon.png' %}" class="nav-icon-img">
+                        <p>Dashboard</p>
+                    </a>
+                {% endif %}
+                <a href="{% url 'view_templates' %}" class="side-sub-container">
+                    <img src="{% static 'images/profile_icon.png' %}" class="nav-icon-img">
+                    <p>Orders</p>
+                </a>
+
+                <a href="{% url 'logout' %}" class="side-sub-container side-logout">
+                    <img src="{% static 'images/profile_icon.png' %}" class="nav-icon-img">
+                    <p>Logout</p>
+                </a>
+                {% endif %}
+
+            </div>
+            <div class="side-section-container">
+                <h3>View</h3>
+                <a href="{% url 'view_templates' %}" class="side-sub-container">
+                    <img src="{% static 'images/search_icon.png' %}" class="nav-icon-img">
+                    <p>Templates</p>
+                </a>
+            </div>
+
+        </div>
     </header>
 
+    <main>
     {% block content %}{% endblock %}
+    </main>
 
 
 <!-- JavaScript -->
