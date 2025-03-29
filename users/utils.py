@@ -68,12 +68,37 @@ def save_resume(user, data):
         print("Resume does not exist")
         return
 
-    resume.job_title = data.get("job_title")
-    resume.first_name = data.get("fname")
-    resume.last_name = data.get("lname")
+    # Validate and update fields
+    if validate_field_length(data.get("job_title"), Resume._meta.get_field("job_title").max_length):
+        resume.job_title = data.get("job_title")
+    else:
+        print("Job title exceeds maximum length and was not updated.")
+
+    if validate_field_length(data.get("fname"), Resume._meta.get_field("first_name").max_length):
+        resume.first_name = data.get("fname")
+    else:
+        print("First name exceeds maximum length and was not updated.")
+
+    if validate_field_length(data.get("lname"), Resume._meta.get_field("last_name").max_length):
+        resume.last_name = data.get("lname")
+    else:
+        print("Last name exceeds maximum length and was not updated.")
+
+  
+    
+
+
+    if validate_field_length(data.get("phone"), Resume._meta.get_field("phone_number").max_length):
+        resume.phone_number = data.get("phone")
+    else:
+        print("Phone number exceeds maximum length and was not updated.")
+
+    if validate_field_length(data.get("city"), Resume._meta.get_field("city").max_length):
+        resume.city = data.get("city")
+    else:
+        print("City exceeds maximum length and was not updated.")
+
     resume.email = data.get("email")
-    resume.phone_number = data.get("phone")
-    resume.city = data.get("city")
     resume.summary = data.get("summary")
 
     resume.save()
@@ -88,9 +113,15 @@ def save_subsection(user, data):
     except ResumeSubSection.DoesNotExist:
         print("Subsection does not exist or does not belong to the user")
         return
-    
-    sub.title = data.get("sub_title", sub.title)
-    sub.description = data.get("sub_desc", sub.description)
+
+    # Validate and update the title field
+    if validate_field_length(data.get("sub_title"), ResumeSubSection._meta.get_field("title").max_length):
+        sub.title = data.get("sub_title")
+    else:
+        print("Subsection title exceeds maximum length and was not updated.")
+
+    sub.description = data.get("sub_desc")
+
     sub.save()
 
 
@@ -103,9 +134,13 @@ def save_section_name(user, data):
     except ResumeSection.DoesNotExist:
         print("Section does not exist or does not belong to the user")
         return
-    
-    section.name = data.get("section_name", section.name)
-    section.save()
+
+    # Validate and update the section name
+    if validate_field_length(data.get("section_name"), ResumeSection._meta.get_field("name").max_length):
+        section.name = data.get("section_name")
+        section.save()
+    else:
+        print("Section name exceeds maximum length and was not updated.")
 
 
 def add_subsection(user, section_id):
@@ -244,3 +279,9 @@ def get_all_templates():
     return Template.objects.all().order_by('id').values()   # Returns list of dictionaries for templates
         
         
+def validate_field_length(value, max_length):
+    """
+    Validates that the given value does not exceed the specified max_length.
+    Returns True if valid, False otherwise.
+    """
+    return len(value) <= max_length if value else True

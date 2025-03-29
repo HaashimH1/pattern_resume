@@ -34,12 +34,12 @@ class Resume(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='resumes')
     template = models.ForeignKey(Template, on_delete=models.SET_NULL, null=True)
     summary = models.TextField()
-    first_name = models.CharField(max_length=50, default="First name")
-    last_name = models.CharField(max_length=50, default="Last name")
-    job_title = models.CharField(max_length=100, default="Job title")
+    first_name = models.CharField(max_length=30, default="First name")
+    last_name = models.CharField(max_length=30, default="Last name")
+    job_title = models.CharField(max_length=30, default="Job title")
     email = models.TextField(default="Email Address")
     phone_number = models.CharField(max_length=20, default="Phone number")
-    city = models.CharField(max_length=50, default="City")
+    city = models.CharField(max_length=30, default="City")
     last_saved = models.DateTimeField(auto_now=True)
     
     def __str__(self):
@@ -48,8 +48,8 @@ class Resume(models.Model):
 
 class ResumeSection(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='sections')
-    name = models.CharField(max_length=100)
-    order = models.PositiveIntegerField(default=0)
+    name = models.CharField(max_length=30)
+    order = models.PositiveIntegerField(default=1)
     
     def __str__(self):
         return f"{self.resume.user.username} - {self.name}: Resume Section"
@@ -57,9 +57,9 @@ class ResumeSection(models.Model):
 
 class ResumeSubSection(models.Model):
     section = models.ForeignKey(ResumeSection, on_delete=models.CASCADE, related_name='sub')
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=60)
     description = models.TextField()
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=1)
     
     def __str__(self):
         return f"{self.section.resume.user.username} - {self.section.name} > {self.title}: Resume SubSection"

@@ -119,7 +119,6 @@ def dashboard_view(request):
             rendered_resume = Template(template_data['html']).render(Context(render_context))
                 
             if request.method == "POST":
-                print(request.POST)
                 if "save_resume" in request.POST:
                     handle_saving_resume(request)
                 elif "save_subsection" in request.POST:
