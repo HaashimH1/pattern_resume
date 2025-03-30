@@ -37,6 +37,22 @@ main{
     min-width: 100vw;
 }
 
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9ffff;
+}
+
+/* mailchimp embedded form */
+#mc_embed_signup {
+    background: #f9ffff;
+    clear: left;
+    font: 14px Helvetica, Arial, sans-serif;
+    width: 320px;
+}
+
+
 /* Goggle provided login button styles */
 
 .gsi-material-button {
@@ -142,6 +158,47 @@ main{
     background-color: #303030;
     opacity: 8%;
   }
+
+.info-segment {
+    background-color: white;
+    height: 100%;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    padding: 2em 2em;
+    justify-content: center;
+    align-items: space-between;
+    gap: 2em;
+}
+
+.info-card-groups{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+.info-card-description{
+    font-weight: 500;
+}
+
+.info-card-image{
+    height: 100px;
+    border-radius: 10px;
+}
+
+.info-card-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
   
 
 .hidden {
@@ -890,6 +947,7 @@ input[type="radio"] {
     align-items: center;
     height: 100%;
     min-height: 600px;
+    padding: 1em;
 }
 
 .hero-content-container{
@@ -900,31 +958,75 @@ input[type="radio"] {
     gap: 2em;
     width: 100%;
     height: 100%;
-    padding: 1em;
 }
 
 .hero-buttons-container{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
     gap: 1em;
     width: 100%;
     height: 100%;
 }
 
+.hero-title-1,
+.hero-title-2{
+    font-weight: 750;
+}
+
+.hero-title-1{
+    color: var(--primary);
+}
+
+.hero-title-2{
+    color: var(--secondary);
+}
+
 .hero-button{
     cursor: pointer;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: var(--primary);
     color: white;
-    width: 180px;
+    width: 50%;
     height: 4em;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    font-weight: 600;
+    border: var(--primary) solid 1px;
+    font-size: .9em;
+}
+
+
+
+.hero-button-first:hover{
+
+    color: black;
+
+    transition: all;
+    transition-duration: .2s;
+
+}
+
+
+
+.hero-button-last{
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+.hero-button-last:hover{
+
+    
+    background-color: var(--primary);
+    border-color: var(--primary);
+    transition: all;
+    transition-duration: .2s;
+
 }
 
 .hero-image-container{
@@ -934,7 +1036,7 @@ input[type="radio"] {
 }
 
 .hero-image{
-    height: 350px;
+    width: 320px;
 }
 
 .login-container{
@@ -1254,6 +1356,11 @@ input[type="radio"] {
 
 @media screen and (min-width:600px){
 
+    /* mailchimp embedded form */
+    #mc_embed_signup {
+        width: 600px;
+    }
+
     .template-container{
         flex-direction: row;;
     }
@@ -1277,11 +1384,32 @@ input[type="radio"] {
         display:block;
     }
 
+    .info-card-container{
+        flex-direction: row;
+        justify-content: flex-start;
+        max-width: 75em;
+    }
+
+    .info-card-container:nth-child(2){
+        flex-direction: row-reverse;
+    }
+
+    .hero-button{
+        font-size: 1.1em;
+    }
+
     
 }
   
 
 @media screen and (min-width:768px) {
+
+    /* mailchimp embedded form */
+    #mc_embed_signup {
+        width: 768px;
+    }
+
+
 
 .nav-container{
     padding: 0 40px;
@@ -1291,20 +1419,17 @@ input[type="radio"] {
 .hero{
     flex-direction: row;
     justify-content: space-between;
+    padding-right: 2em;
+}
+
+.hero-image{
+    width: 400px;
 }
 
 .hero-content-container{
     width: 50%;
     justify-content: flex-start;
     align-items: flex-start;
-}
-
-.hero-buttons-container{
-    flex-direction: row;
-}
-
-.hero-button{
-    width: 50%;
 }
 
 .dashboard-container{
@@ -1331,6 +1456,15 @@ input[type="radio"] {
 
 
 @media screen and (min-width:992px) {
+
+    .hero-image{
+        width: 600px;
+    }
+
+    /* mailchimp embedded form */
+    #mc_embed_signup {
+        width: 992px;
+    }
 
     .resume-content-container{
         padding: 2em;

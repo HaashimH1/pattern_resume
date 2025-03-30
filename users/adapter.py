@@ -30,3 +30,8 @@ class MySocialAccountAdapter(DefaultSocialAccountAdapter):
             return User.objects.get(email__iexact=email)
         except User.DoesNotExist:
             return None
+        
+        
+    def get_login_cancelled_url(self, request):
+        # You can force redirect to your login page (or any other URL)
+        return '/login/'
