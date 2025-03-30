@@ -55,9 +55,11 @@
                 <textarea name="summary" class="big-text-box" rows="3">{{ resume_data.summary }}</textarea>
             </div>
 
-            <button type="submit" name="save_resume" class="save-resume-button">Save the above</button>
+            <button type="submit" name="save_resume" class="save-resume-button">Save</button>
 
         </form>
+
+        <div class="dashboard-divider">-</div>
 
         
             {% if sections_data%}
@@ -72,13 +74,16 @@
                             <div class="section-header-delete-button">
                                 <img src="{% static 'images/delete_icon.png' %}" alt="delete icon" class="db-icon-img">
                                 <div class="pop-up-container hidden">
-                                    <p>Are you sure you want to delete this section: <br>{{section.name}}, ID:{{section.id}}</p>
+                                    <h5>Are you sure you want to delete</h5>
+                                    <h4>{{section.name}}</h4>
                                     <div class="popup-buttons-options-container">
                                         <form method="POST" class="popup-delete-confirm-container">
                                             {% csrf_token %}
                                             <input type="hidden" name="section_id" value="{{ section.id }}">
                                             <input type="hidden" name="delete_section" value="true">
-                                            <button type="submit" name="delete_section" class="delete-section-button">CONFIRM</button>
+                                            <button type="submit" name="delete_section" class="delete-section-button">
+                                                <img src="{% static 'images/delete_icon.png' %}" alt="close icon" class="nav-icon-img">
+                                            </button>
                                         </form>
                                         <div class="popup-cancel-button-container">
                                             <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="nav-icon-img">
@@ -90,7 +95,8 @@
                             <div class="section-header-swap-button">
                                 <img src="{% static 'images/sort_icon.png' %}" alt="swap icon" class="db-icon-img">
                                 <div class="pop-up-container hidden">
-                                    <p>Are you sure you want to swap this section: <br>{{section.name}}, ID:{{section.id}}</p>
+                                    <h5>Swap</h5>
+                                    <h4>{{section.name}}</h4>
                                     {% for swap_section in sections_data%}
                                         {% if swap_section.id != section.id %}
                                         <form method="POST" class="popup-swap-confirm-container">
@@ -98,13 +104,16 @@
                                             <input type="hidden" name="section_a_id" value="{{ section.id }}">
                                             <input type="hidden" name="section_b_id" value="{{ swap_section.id }}">
                                             <input type="hidden" name="swap_section" value="true">
-                                            <button type="submit" class="swap-section-button">Swap with {{swap_section.name}}</button>
+                                            <button type="submit" class="swap-section-button">
+                                                <img src="{% static 'images/sort_icon.png' %}" alt="close icon" class="db-icon-img">
+                                                <p>{{swap_section.name}}</p>
+                                            </button>
                                         </form>
                                         {% endif %}
                                     {% endfor %}
                                     <div class="popup-buttons-options-container">
                                         <div class="popup-cancel-button-container">
-                                            CANCEL
+                                            <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="nav-icon-img">
                                         </div>
                                     </div>
                 
@@ -116,9 +125,11 @@
                             {% csrf_token %}
                             <input type="hidden" name="section_id" value="{{ section.id }}">
                             <input type="text" name="section_name" value="{{ section.name }}" maxlength="30">
-                            <button type="submit" name="save_section_name">Save</button>
+                            <button type="submit" name="save_section_name" class="save-button">
+                                <img src="{% static 'images/verify_icon.png' %}" alt="close icon" class="db-icon-img">
+                            </button>
                             <div class="section-header-close-button">
-                                Cancel
+                                <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="db-icon-img">
                             </div>
                         </form>
                     </div>
@@ -128,7 +139,8 @@
                                 <div class="subsection-swap">
                                     <img src="{% static 'images/sort_icon.png' %}" alt="swap icon" class="db-icon-img">
                                     <div class="pop-up-container hidden">
-                                        <p>Change this sub<br>{{sub.title}}</p>
+                                        <h5>Swap</h5>
+                                        <h4>{{sub.title}}</h4>
                                         {% for swap_sub in section.sub.all|dictsort:"order" %}
                                             {% if swap_sub.id != sub.id %}
                                             <form method="POST" class="popup-swap-confirm-container">
@@ -136,13 +148,16 @@
                                                 <input type="hidden" name="sub_a_id" value="{{ sub.id }}">
                                                 <input type="hidden" name="sub_b_id" value="{{ swap_sub.id }}">
                                                 <input type="hidden" name="swap_sub" value="true">
-                                                <button type="submit" class="swap-sub-button">Swap with {{swap_sub.title}}</button>
+                                                <button type="submit" class="swap-section-button">
+                                                    <img src="{% static 'images/sort_icon.png' %}" alt="close icon" class="db-icon-img">
+                                                    <p>{{swap_sub.title}}</p>
+                                                </button>
                                             </form>
                                             {% endif %}
                                         {% endfor %}
                                         <div class="popup-buttons-options-container">
                                             <div class="popup-cancel-button-container">
-                                                CANCEL
+                                                <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="nav-icon-img">
                                             </div>
                                         </div>
 
@@ -164,22 +179,27 @@
                                             <label for="sub_desc">Description</label>
                                             <textarea type="text" name="sub_desc" value="{{ sub.description }}" class="sub-textarea" rows="7">{{ sub.description }}</textarea>
                                         </div>
-                                        <button type="submit" name="save_subsection" class="save-resume-button">Save</button>
+                                        <button type="submit" name="save_subsection" class="save-resume-button">
+                                            Save
+                                        </button>
                                     </form>
                                 </div>
                                 <div class="subsection-delete">
                                     <img src="{% static 'images/delete_icon.png' %}" alt="delete icon" class="db-icon-img">
                                     <div class="pop-up-container hidden">
-                                        <p>Are you sure you want to delete this subsection: <br>{{sub.title}}, ID:{{sub.id}}</p>
+                                        <h5>Are you SURE you wan to delete</h5>
+                                        <h4>{{sub.title}}</h4>
                                         <div class="popup-buttons-options-container">
                                             <form method="POST" class="popup-delete-confirm-container">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="sub_id" value="{{ sub.id }}">
                                                 <input type="hidden" name="delete_sub" value="true">
-                                                <button type="submit" name="delete_sub" class="delete-sub-button">CONFIRM</button>
+                                                <button type="submit" name="delete_sub" class="delete-section-button">
+                                                    <img src="{% static 'images/delete_icon.png' %}" alt="close icon" class="db-icon-img">
+                                                </button>
                                             </form>
                                             <div class="popup-cancel-button-container">
-                                                CANCEL
+                                                <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="nav-icon-img">
                                             </div>
                                         </div>
 
@@ -189,9 +209,6 @@
                             </div>
                             {% endfor %}
 
-
-                        {% else%}
-                        <p>no subs</p>
                         {% endif %}
 
                     <form method="POST" class="add-sub-container">
@@ -200,10 +217,8 @@
                         <button type="submit" name="add_sub" class="add-sub-button">+ Add one more {{section.name}}</button>
                     </form>
                 </div>
-
+                <div class="dashboard-divider">-</div>
                 {% endfor%}
-            {% else %}
-            <p>No sections yet</p>
             {% endif %}
             
             <form method="POST" class="add-section-container">
@@ -223,11 +238,11 @@
     <div class="resume-preview-container">
         <div class="resume-preview-options-container">
             <div class="change-template-button">
-                Templates
+                <img src="{% static 'images/edit_icon.png' %}" alt="close icon" class="nav-icon-img">
             </div>
             <!-- Download button opens in a new tab -->
             <a href="{% url 'download_resume_pdf' %}" target="_blank" class="download-resume-button">
-                Download
+                <img src="{% static 'images/download_icon.png' %}" alt="close icon" class="nav-icon-img">
             </a>
             <div class="close-preview-button">
                 <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="nav-icon-img">
@@ -246,19 +261,19 @@
 
     <!-- Change template Popup -->
     <div class="pop-up-container change-template-popup-container hidden">
-        <p>Select a template for your resume:</p>
+        <h4>Choose From</h4>
         <form method="POST" class="popup-change-template-form">
             {% csrf_token %}
             <div class="template-options-container">
                 <!-- User's current template -->
-                <div>
+                <div class="template-option">
                     <input type="radio" id="template_{{ resume_data.template.id }}" name="template_id" value="{{ resume_data.template.id }}" checked>
-                    <label for="template_{{ resume_data.template.id }}">{{ resume_data.template.name }} (Current)</label>
+                    <label for="template_{{ resume_data.template.id }}">{{ resume_data.template.name }}</label>
                 </div>
                 <!-- Other templates the user has access to -->
                 {% for template in user_status_data.templates %}
                     {% if template.id != resume_data.template.id %}
-                        <div>
+                        <div class="template-option">
                             <input type="radio" id="template_{{ template.id }}" name="template_id" value="{{ template.id }}">
                             <label for="template_{{ template.id }}">{{ template.name }}</label>
                         </div>
@@ -267,9 +282,11 @@
             </div>
             <div class="popup-buttons-options-container">
                 <input type="hidden" name="change_template" value="true">
-                <button type="submit" name="change_template" class="change-template-button">CONFIRM</button>
+                <button type="submit" name="change_template" class="change-template-button">
+                    <img src="{% static 'images/verify_icon.png' %}" alt="close icon" class="nav-icon-img">
+                </button>
                 <div class="popup-cancel-button-container">
-                    CANCEL
+                    <img src="{% static 'images/cross_icon.png' %}" alt="close icon" class="nav-icon-img">
                 </div>
             </div>
         </form>

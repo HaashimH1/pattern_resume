@@ -13,7 +13,7 @@ $(document).ready(function(){
 
     // If the clicked subsection was not already open, open it
     if (!isAlreadyOpen) {
-        $form.css('display', 'flex');
+        $form.slideDown(300);
     }
 });
 
