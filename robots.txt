@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /static/
+Disallow: /dashboard/
+Disallow: /orders/
+Disallow: /stripe/
+
+Sitemap: https://pattern-resume-9bdbd99a82a6.herokuapp.com/sitemap.xml
