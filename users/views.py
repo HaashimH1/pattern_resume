@@ -1,7 +1,5 @@
 import requests
-import os
 from django.http import HttpResponse
-from django.template.loader import render_to_string
 from django.template import Template, Context
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout

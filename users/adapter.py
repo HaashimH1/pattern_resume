@@ -33,5 +33,4 @@ class MySocialAccountAdapter(DefaultSocialAccountAdapter):
         
         
     def get_login_cancelled_url(self, request):
-        # You can force redirect to your login page (or any other URL)
         return '/login/'
