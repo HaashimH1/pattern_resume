@@ -44,6 +44,10 @@ footer{
     background-color: #f9ffff;
 }
 
+input, textarea, select {
+    font-size: 16px;
+}
+
 /* mailchimp embedded form */
 #mc_embed_signup {
     background: #f9ffff;

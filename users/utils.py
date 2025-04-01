@@ -1,4 +1,4 @@
-from .models import UserStatus, Template, Order, Resume, ResumeSection, ResumeSubSection
+from .models import UserStatus, Template, Resume, ResumeSection, ResumeSubSection
 from django.core.exceptions import ObjectDoesNotExist
 
 def get_user_status(user):

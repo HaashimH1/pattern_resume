@@ -36,8 +36,7 @@ def buy_template(request, template_id):
 
     # Check if the user already owns the template
     if does_user_own_template(request.user, template_id):
-        # Redirect to the home page
-        return redirect('home')
+        return redirect('orders')
 
     # Create a Stripe Checkout session
     session = create_checkout_session(request.user, template_id, request)

@@ -1,7 +1,8 @@
-import io
+import requests
+import os
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 from django.template import Template, Context
-from xhtml2pdf import pisa
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
@@ -25,6 +26,70 @@ from users.utils import (
     swap_section,
     get_all_templates,
     )
+from django.conf import settings
+
+def download_resume_pdf(request):
+    if not request.user.is_authenticated:
+        return redirect('account_login')
+    
+    # Ensure the user has created a resume
+    if not is_resume_created(request.user):
+        return redirect('create_a_resume')
+    
+    # Retrieve resume data, sections and template content
+    resume_data = get_resume_data(request.user)
+    sections_data = get_sections(request.user)
+    template_data = get_template_content(request.user)
+    
+    # Create context for the template rendering
+    render_context = {
+        'resume_data': resume_data,
+        'sections_data': sections_data,
+    }
+    
+    # Render the stored HTML template with context
+    rendered_html = Template(template_data['html']).render(Context(render_context))
+    
+    # Build a full HTML document with inline CSS (all CSS is in the <style> tag)
+    html_string = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>{resume_data.first_name} {resume_data.last_name} - Resume</title>
+      <style>
+        {template_data['css']}
+      </style>
+    </head>
+    <body>
+      {rendered_html}
+    </body>
+    </html>
+    """
+    
+    # Prepare payload for the PDF-API (or another service of your choice)
+    api_url = "https://pdf-api.co/pdf"  # Example endpoint – verify with your chosen API's documentation.
+    payload = {
+        "apiKey": settings.PDF_API_KEY,  # Set your PDF API key in settings.
+        "format": "A4",
+        "landscape": False,
+        "html": html_string,
+    }
+    
+    # Call the API to convert HTML to PDF
+    try:
+        api_response = requests.post(api_url, json=payload)
+        api_response.raise_for_status()  # Raise an error for bad status codes.
+    except requests.RequestException as e:
+        # Log the error if needed
+        return HttpResponse("Error generating PDF: " + str(e))
+    
+    pdf_data = api_response.content  # The PDF binary data returned by the API.
+    
+    # Return the PDF as an inline response
+    response = HttpResponse(pdf_data, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="resume.pdf"'
+    return response
 
 
 def home_view(request):
@@ -157,59 +222,6 @@ def dashboard_view(request):
         else:
             return redirect('home')   
           
-          
-def download_resume_pdf(request):
-    if not request.user.is_authenticated:
-        return redirect('account_login')
-    
-    # Ensure user has a resume created
-    if not is_resume_created(request.user):
-        return redirect('create_a_resume')
-    
-    # Get resume data and sections
-    resume_data = get_resume_data(request.user)
-    sections_data = get_sections(request.user)
-    
-    template_data = get_template_content(request.user)
-    
-    # Create the context to be used in the template
-    render_context = {
-        'resume_data': resume_data,
-        'sections_data': sections_data,
-    }
-    
-    # Render the stored HTML template (which is a string) with the context
-    rendered_html = Template(template_data['html']).render(Context(render_context))
-    
-    # Build a complete HTML document by injecting the CSS into a <style> tag
-    html_string = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <title>{resume_data.first_name} {resume_data.last_name} - Resume</title>
-      <style>
-        {template_data['css']}
-      </style>
-    </head>
-    <body>
-      {rendered_html}
-    </body>
-    </html>
-    """
-    
-    # Generate PDF using xhtml2pdf
-    result = io.BytesIO()
-    pdf = pisa.CreatePDF(io.StringIO(html_string), dest=result)
-    
-    if not pdf.err:
-        # Return PDF as an inline response (opens in a new tab)
-        response = HttpResponse(result.getvalue(), content_type='application/pdf')
-        response['Content-Disposition'] = 'inline; filename="resume.pdf"'
-        return response
-    else:
-        return HttpResponse("Error generating PDF", status=400)
-        
 
         
 def handle_creating_resume(request):
