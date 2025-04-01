@@ -13,7 +13,19 @@
         {% for template in templates %}
         <div class="template-container">
             <div class="template-img-container">
-                <img src="/static/images/resume_{{template.name}}.png" alt="template image" class="template-img">
+                {% if "Dragon" in template.name %}
+                <img src="{% static 'images/resume_dragon.png' %}" alt="template image" class="template-img">
+                {% elif "Pearl" in template.name %}
+                <img src="{% static 'images/resume_pearl.png' %}" alt="template image" class="template-img">
+                {% elif "Midas" in template.name %}
+                <img src="{% static 'images/resume_midas.png' %}" alt="template image" class="template-img">
+                {% elif "Modern" in template.name %}
+                <img src="{% static 'images/resume_modern.png' %}" alt="template image" class="template-img">
+                {% elif "Elegant" in template.name %}
+                <img src="{% static 'images/resume_elegant.png' %}" alt="template image" class="template-img">
+                {% else %}
+                <img src="{% static 'images/hero_img.png' %}" alt="template image" class="template-img">
+                {% endif %}
             </div>
             <div class="template-content-container">
                 <h3>{{ template.name }}</h3>
