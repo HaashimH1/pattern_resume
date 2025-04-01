@@ -16,6 +16,7 @@ class Template(models.Model):
     description = models.TextField()
     html_content = models.TextField()
     css_content = models.TextField()
+    img_url = models.TextField()
     
     def __str__(self):
         return self.name  # This will show the template's title in the admin panel

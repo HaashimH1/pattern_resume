@@ -729,7 +729,7 @@ input[type="radio"] {
 }
 
 .template-img{
-    height: 200px;
+    width: 250px;
 }
 
 .template-content-container{
@@ -1375,10 +1375,6 @@ input[type="radio"] {
         width: auto;
     }
     
-    .template-img{
-        height: 250px;
-    }
-    
     .template-content-container{
         align-items: flex-start;;
         gap: 60px;
@@ -1472,6 +1468,10 @@ input[type="radio"] {
 
     .resume-content-container{
         padding: 2em;
+    }
+
+    .template-img{
+        width: 300px;
     }
 
 }

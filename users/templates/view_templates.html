@@ -11,7 +11,7 @@
     {% for template in templates %}
     <div class="template-container">
         <div class="template-img-container">
-            <img src="{% static 'images/placeholder.png' %}" alt="template image" class="template-img">
+            <img src="/static/images/resume_{{template.name}}.png" alt="template image" class="template-img">
         </div>
         <div class="template-content-container">
             <h3>{{ template.name }}</h3>
